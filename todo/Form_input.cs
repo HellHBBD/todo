@@ -23,16 +23,16 @@ namespace todo
             InitializeComponent();
             status = Status.Add;
             label_prompt.Text = "名稱：";
-            this.oldName = textBox_input.Text = "";
+            oldName = textBox_input.Text = "";
         }
 
         // rename user
-        public Form_input(string oldName)
+        public Form_input(string name)
         {
             InitializeComponent();
             status = Status.Rename;
             label_prompt.Text = "新名稱：";
-            this.oldName = textBox_input.Text = oldName;
+            oldName = textBox_input.Text = name;
         }
 
         void add()
@@ -50,7 +50,18 @@ namespace todo
         }
         void rename()
         {
-
+            if (string.IsNullOrEmpty(textBox_input.Text) || textBox_input.Text == oldName)
+            {
+                return;
+            }
+            if (userList.ContainsKey(textBox_input.Text))
+            {
+                MessageBox.Show("使用者已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            MessageBox.Show(Program.userList.ToString());
+            Program.userList[textBox_input.Text] = Program.userList[oldName];
+            userList.Remove(oldName);
         }
 
         private void button_confirm_Click(object sender, EventArgs e)

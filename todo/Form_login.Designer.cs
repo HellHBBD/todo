@@ -53,6 +53,7 @@ partial class Form_login
         button_open.TabIndex = 1;
         button_open.Text = "開啟";
         button_open.UseVisualStyleBackColor = true;
+        button_open.Click += button_open_Click;
         // 
         // button_add
         // 
@@ -82,6 +83,7 @@ partial class Form_login
         button_rename.TabIndex = 4;
         button_rename.Text = "重新命名";
         button_rename.UseVisualStyleBackColor = true;
+        button_rename.Click += button_rename_Click;
         // 
         // button_exit
         // 
