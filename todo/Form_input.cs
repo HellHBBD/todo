@@ -59,7 +59,6 @@ namespace todo
                 MessageBox.Show("使用者已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            MessageBox.Show(Program.userList.ToString());
             Program.userList[textBox_input.Text] = Program.userList[oldName];
             userList.Remove(oldName);
         }

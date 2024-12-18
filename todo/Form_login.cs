@@ -5,12 +5,10 @@ namespace todo;
 
 public partial class Form_login : Form
 {
-    Dictionary<string, User> userList = Program.userList;
     void updateListBox()
     {
-        /* update listBox content from userList */
         listBox.Items.Clear();
-        foreach (var kvp in userList)
+        foreach (var kvp in Program.userList)
         {
             listBox.Items.Add(kvp.Key);
         }
@@ -19,15 +17,14 @@ public partial class Form_login : Form
     public Form_login()
     {
         InitializeComponent();
-        /* read data from file or create new object */
         try
         {
             string jsonString = File.ReadAllText("data.json", Encoding.UTF8);
-            userList = JsonConvert.DeserializeObject<Dictionary<string, User>>(jsonString) ?? new Dictionary<string, User>();
+            Program.userList = JsonConvert.DeserializeObject<Dictionary<string, User>>(jsonString) ?? new Dictionary<string, User>();
         }
         catch
         {
-            userList = new Dictionary<string, User>();
+            Program.userList = new Dictionary<string, User>();
         }
         updateListBox();
     }
@@ -45,7 +42,7 @@ public partial class Form_login : Form
         {
             return;
         }
-        userList.Remove((string)listBox.SelectedItem);
+        Program.userList.Remove((string)listBox.SelectedItem);
         updateListBox();
     }
 
@@ -56,7 +53,7 @@ public partial class Form_login : Form
 
     private void Form_login_FormClosing(object sender, FormClosingEventArgs e)
     {
-        string jsonString = JsonConvert.SerializeObject(userList);
+        string jsonString = JsonConvert.SerializeObject(Program.userList);
         File.WriteAllText("data.json", jsonString, Encoding.UTF8);
     }
 
