@@ -44,6 +44,7 @@ partial class Form_login
         listBox.Name = "listBox";
         listBox.Size = new Size(311, 346);
         listBox.TabIndex = 0;
+        listBox.KeyDown += listBox_KeyDown;
         // 
         // button_open
         // 

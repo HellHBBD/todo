@@ -17,5 +17,12 @@ namespace todo
             InitializeComponent();
             Text = user;
         }
+
+        private void 切換使用者ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /* change mainForm to Form_login and exit Form_home */
+            Program.mainForm = new Form_login();
+            Close();
+        }
     }
 }

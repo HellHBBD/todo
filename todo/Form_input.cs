@@ -80,5 +80,18 @@ namespace todo
         {
             Close();
         }
+
+        private void textBox_input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button_confirm_Click(sender, e);
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Escape) {
+                button_cancel_Click(sender, e);
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }

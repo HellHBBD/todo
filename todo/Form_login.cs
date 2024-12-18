@@ -42,6 +42,10 @@ public partial class Form_login : Form
         {
             return;
         }
+        if (MessageBox.Show("使用者以及資料將永久刪除，是否確定刪除？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+        {
+            return;
+        }
         Program.userList.Remove((string)listBox.SelectedItem);
         updateListBox();
     }
@@ -77,5 +81,19 @@ public partial class Form_login : Form
         /* change mainForm to Form_home and exit Form_login */
         Program.mainForm = new Form_home((string)listBox.SelectedItem);
         Close();
+    }
+
+    private void listBox_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            button_open_Click(sender, e);
+            e.SuppressKeyPress = true;
+        }
+        else if (e.KeyCode == Keys.Delete)
+        {
+            button_remove_Click(sender, e);
+            e.SuppressKeyPress = true;
+        }
     }
 }
