@@ -17,7 +17,7 @@ namespace todo
         User curUser;
         EditStatus status;
 
-        //add new mission
+        /* add new mission */
         public Form_edit(string user)
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace todo
             curUser = Program.userList[user];
         }
 
-        //edit old mission
+        /* edit old mission */
         public Form_edit(string user, string task)
         {
             InitializeComponent();
