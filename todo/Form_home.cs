@@ -12,10 +12,12 @@ namespace todo
 {
     public partial class Form_home : Form
     {
+        string User;
         public Form_home(string user)
         {
             InitializeComponent();
             Text = user;
+            User = user;
         }
 
         private void 切換使用者ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -23,6 +25,11 @@ namespace todo
             /* change mainForm to Form_login and exit Form_home */
             Program.mainForm = new Form_login();
             Close();
+        }
+
+        private void Form_home_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -40,7 +40,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { 檔案ToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 28);
+            menuStrip1.Size = new Size(800, 27);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -48,13 +48,13 @@
             // 
             檔案ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 切換使用者ToolStripMenuItem });
             檔案ToolStripMenuItem.Name = "檔案ToolStripMenuItem";
-            檔案ToolStripMenuItem.Size = new Size(53, 24);
+            檔案ToolStripMenuItem.Size = new Size(53, 23);
             檔案ToolStripMenuItem.Text = "檔案";
             // 
             // 切換使用者ToolStripMenuItem
             // 
             切換使用者ToolStripMenuItem.Name = "切換使用者ToolStripMenuItem";
-            切換使用者ToolStripMenuItem.Size = new Size(224, 26);
+            切換使用者ToolStripMenuItem.Size = new Size(167, 26);
             切換使用者ToolStripMenuItem.Text = "切換使用者";
             切換使用者ToolStripMenuItem.Click += 切換使用者ToolStripMenuItem_Click;
             // 
@@ -67,6 +67,7 @@
             MainMenuStrip = menuStrip1;
             Name = "Form_home";
             Text = "Form_home";
+            Load += Form_home_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

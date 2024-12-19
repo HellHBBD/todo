@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 namespace todo
 {
     [Serializable]
-    internal class User
+    internal class Task
     {
         public string name;
-        public Dictionary<string, Task> taskList = new Dictionary<string, Task>();
+        //public string description;
+        public CheckBox checkBox = new CheckBox();
 
-        public User(string name) {
+        public Task(string name)
+        {
             this.name = name;
         }
     }

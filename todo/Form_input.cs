@@ -10,18 +10,18 @@ using System.Windows.Forms;
 
 namespace todo
 {
-    enum Status { Add, Rename }
+    enum InputStatus { Add, Rename }
     public partial class Form_input : Form
     {
         Dictionary<string, User> userList = Program.userList;
         string oldName;
-        Status status;
+        InputStatus status;
 
         // add new user
         public Form_input()
         {
             InitializeComponent();
-            status = Status.Add;
+            status = InputStatus.Add;
             label_prompt.Text = "名稱：";
             oldName = textBox_input.Text = "";
         }
@@ -30,7 +30,7 @@ namespace todo
         public Form_input(string name)
         {
             InitializeComponent();
-            status = Status.Rename;
+            status = InputStatus.Rename;
             label_prompt.Text = "新名稱：";
             oldName = textBox_input.Text = name;
         }
@@ -65,11 +65,11 @@ namespace todo
 
         private void button_confirm_Click(object sender, EventArgs e)
         {
-            if (status == Status.Add)
+            if (status == InputStatus.Add)
             {
                 add();
             }
-            if (status == Status.Rename)
+            if (status == InputStatus.Rename)
             {
                 rename();
             }
@@ -88,10 +88,16 @@ namespace todo
                 button_confirm_Click(sender, e);
                 e.SuppressKeyPress = true;
             }
-            else if (e.KeyCode == Keys.Escape) {
+            else if (e.KeyCode == Keys.Escape)
+            {
                 button_cancel_Click(sender, e);
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void Form_input_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
