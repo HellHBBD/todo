@@ -12,8 +12,14 @@ namespace todo
         public string name;
         public Dictionary<string, Task> taskList = new Dictionary<string, Task>();
 
-        public User(string name) {
+        public User(string name)
+        {
             this.name = name;
+        }
+
+        public void rename(string newName)
+        {
+            name = newName;
         }
     }
 }

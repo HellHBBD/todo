@@ -10,14 +10,16 @@ using System.Windows.Forms;
 
 namespace todo
 {
+    /* reuse Form_input to "add" and "rename" by overloading constructors */
     enum InputStatus { Add, Rename }
+
     public partial class Form_input : Form
     {
         Dictionary<string, User> userList = Program.userList;
         string oldName;
         InputStatus status;
 
-        // add new user
+        /* add new user */
         public Form_input()
         {
             InitializeComponent();
@@ -26,7 +28,7 @@ namespace todo
             oldName = textBox_input.Text = "";
         }
 
-        // rename user
+        /* rename user */
         public Form_input(string name)
         {
             InitializeComponent();
@@ -37,10 +39,12 @@ namespace todo
 
         void add()
         {
-            if (textBox_input.Text == "")
+            /* check empty string */
+            if (string.IsNullOrEmpty(textBox_input.Text))
             {
                 return;
             }
+            /* check duplicate name */
             if (userList.ContainsKey(textBox_input.Text))
             {
                 MessageBox.Show("使用者已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -50,15 +54,20 @@ namespace todo
         }
         void rename()
         {
+            /* check empty string and new name is same as old name*/
             if (string.IsNullOrEmpty(textBox_input.Text) || textBox_input.Text == oldName)
             {
                 return;
             }
+            /* check duplicate name */
             if (userList.ContainsKey(textBox_input.Text))
             {
                 MessageBox.Show("使用者已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            /* change the name in User object */
+            Program.userList[oldName].rename(textBox_input.Text);
+            /* change the key of User object */
             Program.userList[textBox_input.Text] = Program.userList[oldName];
             userList.Remove(oldName);
         }
