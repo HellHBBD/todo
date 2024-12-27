@@ -79,7 +79,7 @@ public partial class Form_login : Form
             return;
         }
         /* change mainForm to Form_home and exit Form_login */
-        Program.currentuser = listBox.SelectedItem.ToString();
+        Program.currentuser = Program.userList[listBox.SelectedItem.ToString()];
         Program.mainForm = new Form_home(Program.currentuser);
         Close();
     }
