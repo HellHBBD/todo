@@ -68,6 +68,7 @@
             Name = "Form_home";
             Text = "Form_home";
             Load += Form_home_Load;
+            MouseDown += Form_home_MouseDown;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

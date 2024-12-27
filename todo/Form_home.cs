@@ -31,5 +31,52 @@ namespace todo
         {
 
         }
+
+        private void Form_home_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                // 確認是否點擊在空白區域
+                var clickedControl = GetChildAtPoint(e.Location);
+                if (clickedControl == null) // 空白區域
+                {
+                    Form_edit form = new Form_edit(this, User);
+                    form.ShowDialog();
+                }
+            }
+        }
+
+        private void Form_home_Checkbox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                CheckBox clickedCheckBox = sender as CheckBox;
+                if (clickedCheckBox != null)
+                {
+                    // 儲存文字
+                    string taskText = clickedCheckBox.Text;
+                    Form_edit form = new Form_edit(this, User,taskText);
+                    form.ShowDialog();
+                }
+            }
+        }
+        public void AddCheckBox(string text)
+        {
+            // 動態新增 CheckBox
+            int offsetY = 10 + Program.userList[Program.currentuser].Count() * 30;
+
+            CheckBox checkBox = new CheckBox
+            {
+                Text = text,
+                Location = new Point(200, offsetY),
+                AutoSize = true
+            };
+
+            // 綁定右鍵點擊事件
+            checkBox.MouseDown += Form_home_Checkbox_MouseDown;
+
+            // 新增到 Form2 的控制項
+            this.Controls.Add(checkBox);
+        }
     }
 }
