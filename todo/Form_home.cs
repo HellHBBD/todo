@@ -36,8 +36,13 @@ namespace todo
         {
             if (e.Button == MouseButtons.Right)
             {
-                Form_edit form = new Form_edit(this, User);
-                form.ShowDialog();
+                // 確認是否點擊在空白區域
+                var clickedControl = GetChildAtPoint(e.Location);
+                if (clickedControl == null) // 空白區域
+                {
+                    Form_edit form = new Form_edit(this, User);
+                    form.ShowDialog();
+                }
             }
         }
 
@@ -58,10 +63,12 @@ namespace todo
         public void AddCheckBox(string text)
         {
             // 動態新增 CheckBox
+            int offsetY = 10 + Program.userList[Program.currentuser].Count() * 30;
+
             CheckBox checkBox = new CheckBox
             {
                 Text = text,
-                Location = new Point(200,200),
+                Location = new Point(200, offsetY),
                 AutoSize = true
             };
 
@@ -70,7 +77,6 @@ namespace todo
 
             // 新增到 Form2 的控制項
             this.Controls.Add(checkBox);
-            MessageBox.Show("nice", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

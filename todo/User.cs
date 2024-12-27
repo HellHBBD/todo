@@ -21,5 +21,10 @@ namespace todo
         {
             name = newName;
         }
+
+        public int Count()
+        {
+            return taskList.Count;
+        }
     }
 }

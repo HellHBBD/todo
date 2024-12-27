@@ -82,6 +82,8 @@ namespace todo
 
             // 新增 CheckBox 到當前表單
             formhome.Controls.Add(taskCheckBox);
+
+            
         }
         void modify() 
         {
@@ -94,8 +96,12 @@ namespace todo
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            curUser.taskList[textBox_input.Text] = curUser.taskList[oldTask];
+            // 修改任務名稱
+            Task taskToUpdate = curUser.taskList[oldTask];
             curUser.taskList.Remove(oldTask);
+            taskToUpdate.name = textBox_input.Text;
+            taskToUpdate.TaskCheckBox.Text = textBox_input.Text;
+            curUser.taskList[textBox_input.Text] = taskToUpdate;
         }
 
         private void button_confirm_Click(object sender, EventArgs e)
@@ -107,6 +113,13 @@ namespace todo
             if (status == EditStatus.Modify)
             {
                 modify();
+                // 更新 CheckBox 的文字
+                var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
+                    .FirstOrDefault(cb => cb.Text == oldTask);
+                if (checkBoxToUpdate != null)
+                {
+                    checkBoxToUpdate.Text = textBox_input.Text;
+                }
             }
             Close();
         }
