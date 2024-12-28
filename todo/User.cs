@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace todo
 {
     [Serializable]
-    internal class User
+    public class User
     {
         public string name;
         public Dictionary<string, Task> taskList = new Dictionary<string, Task>();

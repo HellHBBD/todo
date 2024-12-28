@@ -8,7 +8,7 @@ using System.Xml.Linq;
 namespace todo
 {
     [Serializable]
-    internal class Task
+    public class Task
     {
         public string name;
         //public string description;
@@ -18,6 +18,7 @@ namespace todo
         {
             this.name = name;
         }
+        /*
         public void OnCheckBoxChanged(object sender, EventArgs e)
         {
             if (TaskCheckBox != null)
@@ -25,5 +26,6 @@ namespace todo
                 Console.WriteLine($"Task '{name}' is {(TaskCheckBox.Checked ? "completed" : "not completed")}");
             }
         }
+        */
     }
 }

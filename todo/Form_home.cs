@@ -12,12 +12,11 @@ namespace todo
 {
     public partial class Form_home : Form
     {
-        string User;
-        public Form_home(string user)
+        string username;
+        public Form_home(User user)
         {
             InitializeComponent();
-            Text = user;
-            User = user;
+            Text = username = user.name;
         }
 
         private void 切換使用者ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -40,7 +39,7 @@ namespace todo
                 var clickedControl = GetChildAtPoint(e.Location);
                 if (clickedControl == null) // 空白區域
                 {
-                    Form_edit form = new Form_edit(this, User);
+                    Form_edit form = new Form_edit(this);
                     form.ShowDialog();
                 }
             }
@@ -55,7 +54,7 @@ namespace todo
                 {
                     // 儲存文字
                     string taskText = clickedCheckBox.Text;
-                    Form_edit form = new Form_edit(this, User,taskText);
+                    Form_edit form = new Form_edit(this,taskText);
                     form.ShowDialog();
                 }
             }
@@ -63,7 +62,8 @@ namespace todo
         public void AddCheckBox(string text)
         {
             // 動態新增 CheckBox
-            int offsetY = 10 + Program.userList[Program.currentuser].Count() * 30;
+            int offsetY = 100 + Program.currentuser.Count() * 30;
+            string taskName = text;
 
             CheckBox checkBox = new CheckBox
             {
@@ -71,11 +71,13 @@ namespace todo
                 Location = new Point(200, offsetY),
                 AutoSize = true
             };
+            Task newTask = new Task(taskName);
+            // 綁定事件（可選）
+            //checkBox.CheckedChanged += newTask.OnCheckBoxChanged;
 
-            // 綁定右鍵點擊事件
+            newTask.TaskCheckBox = checkBox;
+            Program.currentuser.taskList[taskName] = newTask;
             checkBox.MouseDown += Form_home_Checkbox_MouseDown;
-
-            // 新增到 Form2 的控制項
             this.Controls.Add(checkBox);
         }
     }

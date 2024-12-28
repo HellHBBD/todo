@@ -4,7 +4,7 @@ static class Program
 {
     /* global variable to store login user data */
     public static Dictionary<string, User> userList = new Dictionary<string, User>();
-    public static string? currentuser;
+    public static User? currentuser;
     public static Form mainForm = new Form_login();
     
     /// <summary>
