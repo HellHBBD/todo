@@ -45,16 +45,16 @@ namespace todo
             }
         }
 
-        private void Form_home_Checkbox_MouseDown(object sender, MouseEventArgs e)
+        private void Form_home_Checkbox_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                CheckBox clickedCheckBox = sender as CheckBox;
+                CheckBox? clickedCheckBox = sender as CheckBox;
                 if (clickedCheckBox != null)
                 {
                     // 儲存文字
                     string taskText = clickedCheckBox.Text;
-                    Form_edit form = new Form_edit(this,taskText);
+                    Form_edit form = new Form_edit(this, taskText);
                     form.ShowDialog();
                 }
             }

@@ -78,10 +78,14 @@ public partial class Form_login : Form
         {
             return;
         }
-        /* change mainForm to Form_home and exit Form_login */
-        Program.currentuser = Program.userList[listBox.SelectedItem.ToString()];
-        Program.mainForm = new Form_home(Program.currentuser);
-        Close();
+        string? userName = listBox.SelectedItem.ToString();
+        if (userName != null)
+        {
+            /* change mainForm to Form_home and exit Form_login */
+            Program.currentuser = Program.userList[userName];
+            Program.mainForm = new Form_home(Program.currentuser);
+            Close();
+        }
     }
 
     private void listBox_KeyDown(object sender, KeyEventArgs e)

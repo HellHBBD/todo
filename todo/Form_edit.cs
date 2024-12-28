@@ -60,9 +60,9 @@ namespace todo
                 return;
             }
             formhome.AddCheckBox(taskName);
-            
+
         }
-        void modify() 
+        void modify()
         {
             if (string.IsNullOrEmpty(textBox_input.Text) || textBox_input.Text == oldTask)
             {
