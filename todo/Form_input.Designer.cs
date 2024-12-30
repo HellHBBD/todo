@@ -82,7 +82,6 @@
             Controls.Add(textBox_input);
             Name = "Form_input";
             Text = "Form_input";
-            Load += Form_input_Load;
             ResumeLayout(false);
             PerformLayout();
         }

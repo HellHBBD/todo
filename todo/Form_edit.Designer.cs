@@ -81,7 +81,6 @@
             Controls.Add(label_name);
             Name = "Form_edit";
             Text = "Form_edit";
-            Load += Form_edit_Load;
             ResumeLayout(false);
             PerformLayout();
         }

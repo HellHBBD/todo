@@ -103,10 +103,5 @@ namespace todo
                 e.SuppressKeyPress = true;
             }
         }
-
-        private void Form_input_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

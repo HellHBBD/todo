@@ -14,7 +14,6 @@ namespace todo
     public partial class Form_edit : Form
     {
         string oldTask;
-        //User curUser;
         EditStatus status;
         private Form_home formhome;
 
@@ -25,7 +24,6 @@ namespace todo
             status = EditStatus.Add;
             label_name.Text = "任務名稱：";
             oldTask = textBox_input.Text = "";
-            //curUser = Program.userList[user];
             formhome = home;
         }
 
@@ -36,13 +34,7 @@ namespace todo
             status = EditStatus.Modify;
             label_name.Text = "新任務名稱：";
             oldTask = textBox_input.Text = task;
-            //curUser = Program.userList[user];
             formhome = home;
-        }
-
-        private void Form_edit_Load(object sender, EventArgs e)
-        {
-
         }
         private void add()
         {
@@ -53,7 +45,7 @@ namespace todo
 
             string taskName = textBox_input.Text;
 
-            // 檢查是否任務已存在
+            /* check duplicate task */
             if (Program.currentuser.taskList.ContainsKey(taskName))
             {
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -73,7 +65,7 @@ namespace todo
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // 修改任務名稱
+            /* modify task name */
             Task taskToUpdate = Program.currentuser.taskList[oldTask];
             Program.currentuser.taskList.Remove(oldTask);
             taskToUpdate.name = textBox_input.Text;
@@ -90,7 +82,7 @@ namespace todo
             if (status == EditStatus.Modify)
             {
                 modify();
-                // 更新 CheckBox 的文字
+                /* update checkBox.Text */
                 var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
                     .FirstOrDefault(cb => cb.Text == oldTask);
                 if (checkBoxToUpdate != null)

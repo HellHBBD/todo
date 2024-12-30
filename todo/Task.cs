@@ -18,14 +18,5 @@ namespace todo
         {
             this.name = name;
         }
-        /*
-        public void OnCheckBoxChanged(object sender, EventArgs e)
-        {
-            if (TaskCheckBox != null)
-            {
-                Console.WriteLine($"Task '{name}' is {(TaskCheckBox.Checked ? "completed" : "not completed")}");
-            }
-        }
-        */
     }
 }
