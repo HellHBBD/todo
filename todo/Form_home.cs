@@ -33,7 +33,7 @@ namespace todo
 
         private void Form_home_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
                 /* check if user click on the blank area */
                 var clickedControl = GetChildAtPoint(e.Location);

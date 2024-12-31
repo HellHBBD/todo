@@ -49,6 +49,7 @@
             textBox_input.Name = "textBox_input";
             textBox_input.Size = new Size(458, 27);
             textBox_input.TabIndex = 1;
+            textBox_input.KeyDown += textBox_input_KeyDown;
             // 
             // button_confirm
             // 

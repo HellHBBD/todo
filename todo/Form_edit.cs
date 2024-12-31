@@ -52,7 +52,6 @@ namespace todo
                 return;
             }
             formhome.AddCheckBox(taskName);
-
         }
         void modify()
         {
@@ -71,6 +70,14 @@ namespace todo
             taskToUpdate.name = textBox_input.Text;
             taskToUpdate.TaskCheckBox.Text = textBox_input.Text;
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
+
+            /* update checkBox.Text */
+            var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
+                .FirstOrDefault(cb => cb.Text == oldTask);
+            if (checkBoxToUpdate != null)
+            {
+                checkBoxToUpdate.Text = textBox_input.Text;
+            }
         }
 
         private void button_confirm_Click(object sender, EventArgs e)
@@ -82,13 +89,6 @@ namespace todo
             if (status == EditStatus.Modify)
             {
                 modify();
-                /* update checkBox.Text */
-                var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
-                    .FirstOrDefault(cb => cb.Text == oldTask);
-                if (checkBoxToUpdate != null)
-                {
-                    checkBoxToUpdate.Text = textBox_input.Text;
-                }
             }
             Close();
         }
@@ -96,6 +96,19 @@ namespace todo
         private void button_cancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void textBox_input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button_confirm_Click(sender, e);
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                button_cancel_Click(sender, e);
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }
