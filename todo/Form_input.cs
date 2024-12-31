@@ -35,12 +35,15 @@ namespace todo
             status = InputStatus.Rename;
             label_prompt.Text = "新名稱：";
             oldName = textBox_input.Text = name;
+
+            textBox_input.Focus();
+            textBox_input.SelectAll();
         }
 
         void add()
         {
             /* check empty string */
-            if (string.IsNullOrEmpty(textBox_input.Text))
+            if (string.IsNullOrWhiteSpace(textBox_input.Text))
             {
                 return;
             }
@@ -55,7 +58,7 @@ namespace todo
         void rename()
         {
             /* check empty string and new name is same as old name*/
-            if (string.IsNullOrEmpty(textBox_input.Text) || textBox_input.Text == oldName)
+            if (string.IsNullOrWhiteSpace(textBox_input.Text) || textBox_input.Text == oldName)
             {
                 return;
             }

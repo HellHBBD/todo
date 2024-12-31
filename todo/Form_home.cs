@@ -26,11 +26,6 @@ namespace todo
             Close();
         }
 
-        private void Form_home_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form_home_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -76,7 +71,7 @@ namespace todo
             Program.currentuser.taskList[taskName] = newTask;
             /* bind event handler */
             checkBox.MouseDown += Form_home_Checkbox_MouseDown;
-            this.Controls.Add(checkBox);
+            Controls.Add(checkBox);
         }
     }
 }

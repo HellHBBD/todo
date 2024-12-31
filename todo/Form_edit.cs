@@ -35,6 +35,9 @@ namespace todo
             label_name.Text = "新任務名稱：";
             oldTask = textBox_input.Text = task;
             formhome = home;
+
+            textBox_input.Focus();
+            textBox_input.SelectAll();
         }
         private void add()
         {
@@ -55,7 +58,7 @@ namespace todo
         }
         void modify()
         {
-            if (string.IsNullOrEmpty(textBox_input.Text) || textBox_input.Text == oldTask)
+            if (string.IsNullOrWhiteSpace(textBox_input.Text) || textBox_input.Text == oldTask)
             {
                 return;
             }
