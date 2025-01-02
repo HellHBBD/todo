@@ -12,7 +12,7 @@ namespace todo
     {
         public string name;
         //public string description;
-        public CheckBox TaskCheckBox = new CheckBox();
+        public bool Checked;
 
         public Task(string name)
         {

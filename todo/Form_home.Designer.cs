@@ -67,6 +67,7 @@
             MainMenuStrip = menuStrip1;
             Name = "Form_home";
             Text = "Form_home";
+            FormClosing += Form_home_FormClosing;
             MouseDown += Form_home_MouseDown;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
