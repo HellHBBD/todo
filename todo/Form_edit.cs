@@ -14,7 +14,6 @@ namespace todo
     public partial class Form_edit : Form
     {
         string oldTask;
-        //User curUser;
         EditStatus status;
         private Form_home formhome;
 
@@ -25,7 +24,6 @@ namespace todo
             status = EditStatus.Add;
             label_name.Text = "任務名稱：";
             oldTask = textBox_input.Text = "";
-            //curUser = Program.userList[user];
             formhome = home;
         }
 
@@ -36,13 +34,10 @@ namespace todo
             status = EditStatus.Modify;
             label_name.Text = "新任務名稱：";
             oldTask = textBox_input.Text = task;
-            //curUser = Program.userList[user];
             formhome = home;
-        }
 
-        private void Form_edit_Load(object sender, EventArgs e)
-        {
-
+            textBox_input.Focus();
+            textBox_input.SelectAll();
         }
         private void add()
         {
@@ -53,18 +48,17 @@ namespace todo
 
             string taskName = textBox_input.Text;
 
-            // 檢查是否任務已存在
+            /* check duplicate task */
             if (Program.currentuser.taskList.ContainsKey(taskName))
             {
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             formhome.AddCheckBox(taskName);
-            
         }
-        void modify() 
+        void modify()
         {
-            if (string.IsNullOrEmpty(textBox_input.Text) || textBox_input.Text == oldTask)
+            if (string.IsNullOrWhiteSpace(textBox_input.Text) || textBox_input.Text == oldTask)
             {
                 return;
             }
@@ -73,12 +67,20 @@ namespace todo
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // 修改任務名稱
+            /* modify task name */
             Task taskToUpdate = Program.currentuser.taskList[oldTask];
             Program.currentuser.taskList.Remove(oldTask);
             taskToUpdate.name = textBox_input.Text;
             taskToUpdate.TaskCheckBox.Text = textBox_input.Text;
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
+
+            /* update checkBox.Text */
+            var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
+                .FirstOrDefault(cb => cb.Text == oldTask);
+            if (checkBoxToUpdate != null)
+            {
+                checkBoxToUpdate.Text = textBox_input.Text;
+            }
         }
 
         private void button_confirm_Click(object sender, EventArgs e)
@@ -90,13 +92,6 @@ namespace todo
             if (status == EditStatus.Modify)
             {
                 modify();
-                // 更新 CheckBox 的文字
-                var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
-                    .FirstOrDefault(cb => cb.Text == oldTask);
-                if (checkBoxToUpdate != null)
-                {
-                    checkBoxToUpdate.Text = textBox_input.Text;
-                }
             }
             Close();
         }
@@ -104,6 +99,19 @@ namespace todo
         private void button_cancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void textBox_input_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button_confirm_Click(sender, e);
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                button_cancel_Click(sender, e);
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

@@ -26,18 +26,13 @@ namespace todo
             Close();
         }
 
-        private void Form_home_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form_home_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
-                // 確認是否點擊在空白區域
+                /* check if user click on the blank area */
                 var clickedControl = GetChildAtPoint(e.Location);
-                if (clickedControl == null) // 空白區域
+                if (clickedControl == null)
                 {
                     Form_edit form = new Form_edit(this);
                     form.ShowDialog();
@@ -45,23 +40,23 @@ namespace todo
             }
         }
 
-        private void Form_home_Checkbox_MouseDown(object sender, MouseEventArgs e)
+        private void Form_home_Checkbox_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                CheckBox clickedCheckBox = sender as CheckBox;
+                CheckBox? clickedCheckBox = sender as CheckBox;
                 if (clickedCheckBox != null)
                 {
-                    // 儲存文字
+                    /* store the text */
                     string taskText = clickedCheckBox.Text;
-                    Form_edit form = new Form_edit(this,taskText);
+                    Form_edit form = new Form_edit(this, taskText);
                     form.ShowDialog();
                 }
             }
         }
         public void AddCheckBox(string text)
         {
-            // 動態新增 CheckBox
+            /* add checkBox in runtime */
             int offsetY = 100 + Program.currentuser.Count() * 30;
             string taskName = text;
 
@@ -72,13 +67,11 @@ namespace todo
                 AutoSize = true
             };
             Task newTask = new Task(taskName);
-            // 綁定事件（可選）
-            //checkBox.CheckedChanged += newTask.OnCheckBoxChanged;
-
             newTask.TaskCheckBox = checkBox;
             Program.currentuser.taskList[taskName] = newTask;
+            /* bind event handler */
             checkBox.MouseDown += Form_home_Checkbox_MouseDown;
-            this.Controls.Add(checkBox);
+            Controls.Add(checkBox);
         }
     }
 }
