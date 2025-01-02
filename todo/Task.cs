@@ -19,5 +19,11 @@ namespace todo
         {
             this.name = name;
         }
+
+        //public Task(string Name, DateTime taskDate)
+        //{
+        //    name = Name;
+        //    TaskDate = taskDate;
+        //}
     }
 }

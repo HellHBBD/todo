@@ -63,6 +63,12 @@ namespace todo
             Close();
         }
 
+        private void 查看月曆ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Calendar calendarForm = new Calendar(Program.currentuser);
+            calendarForm.ShowDialog();
+        }
+
         private void Form_home_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -113,5 +119,7 @@ namespace todo
             string jsonString = JsonConvert.SerializeObject(Program.userList);
             File.WriteAllText("data.json", jsonString, Encoding.UTF8);
         }
+
+        
     }
 }

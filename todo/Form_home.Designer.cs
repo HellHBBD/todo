@@ -31,16 +31,18 @@
             menuStrip1 = new MenuStrip();
             檔案ToolStripMenuItem = new ToolStripMenuItem();
             切換使用者ToolStripMenuItem = new ToolStripMenuItem();
+            查看月曆ToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { 檔案ToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { 檔案ToolStripMenuItem, 查看月曆ToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 27);
+            menuStrip1.Padding = new Padding(5, 2, 0, 2);
+            menuStrip1.Size = new Size(622, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -48,23 +50,31 @@
             // 
             檔案ToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { 切換使用者ToolStripMenuItem });
             檔案ToolStripMenuItem.Name = "檔案ToolStripMenuItem";
-            檔案ToolStripMenuItem.Size = new Size(53, 23);
+            檔案ToolStripMenuItem.Size = new Size(43, 20);
             檔案ToolStripMenuItem.Text = "檔案";
             // 
             // 切換使用者ToolStripMenuItem
             // 
             切換使用者ToolStripMenuItem.Name = "切換使用者ToolStripMenuItem";
-            切換使用者ToolStripMenuItem.Size = new Size(167, 26);
+            切換使用者ToolStripMenuItem.Size = new Size(180, 22);
             切換使用者ToolStripMenuItem.Text = "切換使用者";
             切換使用者ToolStripMenuItem.Click += 切換使用者ToolStripMenuItem_Click;
             // 
+            // 查看月曆ToolStripMenuItem
+            // 
+            查看月曆ToolStripMenuItem.Name = "查看月曆ToolStripMenuItem";
+            查看月曆ToolStripMenuItem.Size = new Size(67, 20);
+            查看月曆ToolStripMenuItem.Text = "查看月曆";
+            查看月曆ToolStripMenuItem.Click += 查看月曆ToolStripMenuItem_Click;
+            // 
             // Form_home
             // 
-            AutoScaleDimensions = new SizeF(9F, 19F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(622, 355);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "Form_home";
             Text = "Form_home";
             FormClosing += Form_home_FormClosing;
@@ -80,5 +90,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem 檔案ToolStripMenuItem;
         private ToolStripMenuItem 切換使用者ToolStripMenuItem;
+        private ToolStripMenuItem 查看月曆ToolStripMenuItem;
     }
 }
