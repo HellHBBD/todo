@@ -54,12 +54,11 @@ namespace todo
                 }
             }
         }
-        public void AddCheckBox(string text)
+        public void AddCheckBox(string text,DateTime date)
         {
             /* add checkBox in runtime */
             int offsetY = 100 + Program.currentuser.Count() * 30;
             string taskName = text;
-
             CheckBox checkBox = new CheckBox
             {
                 Text = text,
@@ -68,6 +67,7 @@ namespace todo
             };
             Task newTask = new Task(taskName);
             newTask.TaskCheckBox = checkBox;
+            newTask.date = date;
             Program.currentuser.taskList[taskName] = newTask;
             /* bind event handler */
             checkBox.MouseDown += Form_home_Checkbox_MouseDown;
