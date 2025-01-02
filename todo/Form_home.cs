@@ -64,19 +64,29 @@ namespace todo
         }
         public void AddCheckBox(string text)
         {
-            /* add checkBox in runtime */
-            int offsetY = 100 + Program.currentuser.Count() * 30;
-            string taskName = text;
+            int initialX = 20; 
+            int initialY = 30; 
+            int rowHeight = 30; 
+            int columnWidth = 150; 
+            int maxRows = ClientSize.Height / rowHeight - 1; 
+
+            
+            int taskIndex = Program.currentuser.taskList.Count; 
+            int column = taskIndex / maxRows;
+            int row = taskIndex % maxRows; 
+
+            int offsetX = initialX + column * columnWidth; 
+            int offsetY = initialY + row * rowHeight;     
 
             CheckBox checkBox = new CheckBox
             {
                 Text = text,
-                Location = new Point(200, offsetY),
+                Location = new Point(offsetX, offsetY),
                 AutoSize = true
             };
-            Task newTask = new Task(taskName);
+            Task newTask = new Task(text);
             newTask.TaskCheckBox = checkBox;
-            Program.currentuser.taskList[taskName] = newTask;
+            Program.currentuser.taskList[text] = newTask;
             /* bind event handler */
             checkBox.MouseDown += Form_home_Checkbox_MouseDown;
             Controls.Add(checkBox);
