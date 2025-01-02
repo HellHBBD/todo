@@ -13,10 +13,18 @@ namespace todo
     public partial class Form_home : Form
     {
         string username;
+        void updateListBox()
+        {
+            foreach (var item in Program.currentuser.taskList)
+            {
+                Controls.Add(item.Value.TaskCheckBox);
+            }
+        }
         public Form_home(User user)
         {
             InitializeComponent();
             Text = username = user.name;
+            updateListBox();
         }
 
         private void 切換使用者ToolStripMenuItem_Click(object sender, EventArgs e)
