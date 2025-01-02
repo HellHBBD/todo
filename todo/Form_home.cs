@@ -12,12 +12,11 @@ namespace todo
 {
     public partial class Form_home : Form
     {
-        string User;
-        public Form_home(string user)
+        string username;
+        public Form_home(User user)
         {
             InitializeComponent();
-            Text = user;
-            User = user;
+            Text = username = user.name;
         }
 
         private void 切換使用者ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -27,50 +26,52 @@ namespace todo
             Close();
         }
 
-        private void Form_home_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form_home_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Left)
             {
-                Form_edit form = new Form_edit(this, User);
-                form.ShowDialog();
+                /* check if user click on the blank area */
+                var clickedControl = GetChildAtPoint(e.Location);
+                if (clickedControl == null)
+                {
+                    Form_edit form = new Form_edit(this);
+                    form.ShowDialog();
+                }
             }
         }
 
-        private void Form_home_Checkbox_MouseDown(object sender, MouseEventArgs e)
+        private void Form_home_Checkbox_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                CheckBox clickedCheckBox = sender as CheckBox;
+                CheckBox? clickedCheckBox = sender as CheckBox;
                 if (clickedCheckBox != null)
                 {
-                    // 儲存文字
+                    /* store the text */
                     string taskText = clickedCheckBox.Text;
-                    Form_edit form = new Form_edit(this, User,taskText);
+                    Form_edit form = new Form_edit(this, taskText);
                     form.ShowDialog();
                 }
             }
         }
         public void AddCheckBox(string text)
         {
-            // 動態新增 CheckBox
+            /* add checkBox in runtime */
+            int offsetY = 100 + Program.currentuser.Count() * 30;
+            string taskName = text;
+
             CheckBox checkBox = new CheckBox
             {
                 Text = text,
-                Location = new Point(200,200),
+                Location = new Point(200, offsetY),
                 AutoSize = true
             };
-
-            // 綁定右鍵點擊事件
+            Task newTask = new Task(taskName);
+            newTask.TaskCheckBox = checkBox;
+            Program.currentuser.taskList[taskName] = newTask;
+            /* bind event handler */
             checkBox.MouseDown += Form_home_Checkbox_MouseDown;
-
-            // 新增到 Form2 的控制項
-            this.Controls.Add(checkBox);
-            MessageBox.Show("nice", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Controls.Add(checkBox);
         }
     }
 }

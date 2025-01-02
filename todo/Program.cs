@@ -4,8 +4,9 @@ static class Program
 {
     /* global variable to store login user data */
     public static Dictionary<string, User> userList = new Dictionary<string, User>();
+    public static User currentuser = new User("");
     public static Form mainForm = new Form_login();
-    
+
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
@@ -21,5 +22,5 @@ static class Program
         {
             Application.Run(mainForm);
         }
-    }    
+    }
 }

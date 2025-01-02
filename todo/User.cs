@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace todo
 {
     [Serializable]
-    internal class User
+    public class User
     {
         public string name;
         public Dictionary<string, Task> taskList = new Dictionary<string, Task>();
@@ -20,6 +20,11 @@ namespace todo
         public void rename(string newName)
         {
             name = newName;
+        }
+
+        public int Count()
+        {
+            return taskList.Count;
         }
     }
 }
