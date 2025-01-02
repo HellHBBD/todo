@@ -11,6 +11,7 @@ namespace todo
     public class Task
     {
         public string name;
+        public DateTime date;
         //public string description;
         public bool Checked;
 

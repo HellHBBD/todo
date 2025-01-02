@@ -100,9 +100,10 @@ namespace todo
                 }
             }
         }
-        public void AddCheckBox(string text)
+        public void AddCheckBox(string text,DateTime date)
         {
             Task newTask = new Task(text);
+            newTask.date = date;
             Program.currentuser.taskList[text] = newTask;
             updateCheckBox();
         }
