@@ -13,11 +13,17 @@ namespace todo
         public string name;
         public DateTime date;
         //public string description;
-        public CheckBox TaskCheckBox = new CheckBox();
+        public bool Checked;
 
         public Task(string name)
         {
             this.name = name;
         }
+
+        //public Task(string Name, DateTime taskDate)
+        //{
+        //    name = Name;
+        //    TaskDate = taskDate;
+        //}
     }
 }

@@ -90,14 +90,29 @@ public partial class Form_login : Form
 
     private void listBox_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.KeyCode == Keys.Enter)
+        if (e.KeyCode == Keys.O)
         {
             button_open_Click(sender, e);
             e.SuppressKeyPress = true;
         }
-        else if (e.KeyCode == Keys.Delete)
+        else if (e.KeyCode == Keys.A)
+        {
+            button_add_Click(sender, e);
+            e.SuppressKeyPress = true;
+        }
+        else if (e.KeyCode == Keys.R)
+        {
+            button_rename_Click(sender, e);
+            e.SuppressKeyPress = true;
+        }
+        else if (e.KeyCode == Keys.D)
         {
             button_remove_Click(sender, e);
+            e.SuppressKeyPress = true;
+        }
+        else if (e.KeyCode == Keys.Q)
+        {
+            button_exit_Click(sender, e);
             e.SuppressKeyPress = true;
         }
     }

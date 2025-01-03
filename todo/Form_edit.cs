@@ -76,7 +76,6 @@ namespace todo
             Program.currentuser.taskList.Remove(oldTask);
             taskToUpdate.name = textBox_input.Text;
             taskToUpdate.date = d;
-            taskToUpdate.TaskCheckBox.Text = textBox_input.Text;
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
 
             /* update checkBox.Text */
