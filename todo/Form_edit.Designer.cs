@@ -34,6 +34,8 @@
             button_cancel = new Button();
             label_date = new Label();
             dateTimePicker_task = new DateTimePicker();
+            label1 = new Label();
+            comboBox_imortamt = new ComboBox();
             SuspendLayout();
             // 
             // label_name
@@ -55,7 +57,7 @@
             // 
             // button_confirm
             // 
-            button_confirm.Location = new Point(276, 103);
+            button_confirm.Location = new Point(276, 139);
             button_confirm.Name = "button_confirm";
             button_confirm.Size = new Size(94, 29);
             button_confirm.TabIndex = 2;
@@ -65,7 +67,7 @@
             // 
             // button_cancel
             // 
-            button_cancel.Location = new Point(376, 103);
+            button_cancel.Location = new Point(376, 139);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(94, 29);
             button_cancel.TabIndex = 3;
@@ -80,22 +82,42 @@
             label_date.Name = "label_date";
             label_date.Size = new Size(42, 19);
             label_date.TabIndex = 4;
-            label_date.Text = "日期:";
+            label_date.Text = "期限:";
             // 
             // dateTimePicker_task
             // 
             dateTimePicker_task.CustomFormat = "yyyy-MM-dd";
             dateTimePicker_task.Format = DateTimePickerFormat.Custom;
-            dateTimePicker_task.Location = new Point(60, 70);
+            dateTimePicker_task.Location = new Point(93, 70);
             dateTimePicker_task.Name = "dateTimePicker_task";
             dateTimePicker_task.Size = new Size(250, 27);
             dateTimePicker_task.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(12, 114);
+            label1.Name = "label1";
+            label1.Size = new Size(72, 19);
+            label1.TabIndex = 6;
+            label1.Text = "重要程度:";
+            // 
+            // comboBox_imortamt
+            // 
+            comboBox_imortamt.FormattingEnabled = true;
+            comboBox_imortamt.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" });
+            comboBox_imortamt.Location = new Point(93, 106);
+            comboBox_imortamt.Name = "comboBox_imortamt";
+            comboBox_imortamt.Size = new Size(151, 27);
+            comboBox_imortamt.TabIndex = 7;
             // 
             // Form_edit
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(482, 140);
+            ClientSize = new Size(482, 180);
+            Controls.Add(comboBox_imortamt);
+            Controls.Add(label1);
             Controls.Add(dateTimePicker_task);
             Controls.Add(label_date);
             Controls.Add(button_cancel);
@@ -116,5 +138,7 @@
         private Button button_cancel;
         private Label label_date;
         private DateTimePicker dateTimePicker_task;
+        private Label label1;
+        private ComboBox comboBox_imortamt;
     }
 }

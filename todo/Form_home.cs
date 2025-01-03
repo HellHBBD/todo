@@ -99,10 +99,11 @@ namespace todo
                 }
             }
         }
-        public void AddCheckBox(string text, DateTime date)
+        public void AddCheckBox(string text, DateTime date, int important)
         {
             Task newTask = new Task(text);
             newTask.date = date;
+            newTask.important = important;
             Program.currentuser.taskList[text] = newTask;
             updateCheckBox();
         }
@@ -117,6 +118,12 @@ namespace todo
         {
             Calendar calendarForm = new Calendar(Program.currentuser);
             calendarForm.ShowDialog();
+        }
+
+        private void 象限圖ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form_quadrant quadrant = new Form_quadrant(Program.currentuser);
+            quadrant.ShowDialog();
         }
     }
 }
