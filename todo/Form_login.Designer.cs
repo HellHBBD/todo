@@ -42,57 +42,57 @@ partial class Form_login
         listBox.ItemHeight = 19;
         listBox.Location = new Point(12, 12);
         listBox.Name = "listBox";
-        listBox.Size = new Size(311, 346);
+        listBox.Size = new Size(304, 346);
         listBox.TabIndex = 0;
         listBox.KeyDown += listBox_KeyDown;
         // 
         // button_open
         // 
-        button_open.Location = new Point(329, 12);
+        button_open.Location = new Point(322, 12);
         button_open.Name = "button_open";
-        button_open.Size = new Size(94, 29);
+        button_open.Size = new Size(101, 29);
         button_open.TabIndex = 1;
-        button_open.Text = "開啟";
+        button_open.Text = "開啟(O)";
         button_open.UseVisualStyleBackColor = true;
         button_open.Click += button_open_Click;
         // 
         // button_add
         // 
-        button_add.Location = new Point(329, 47);
+        button_add.Location = new Point(322, 47);
         button_add.Name = "button_add";
-        button_add.Size = new Size(94, 29);
+        button_add.Size = new Size(101, 29);
         button_add.TabIndex = 2;
-        button_add.Text = "新增";
+        button_add.Text = "新增(A)";
         button_add.UseVisualStyleBackColor = true;
         button_add.Click += button_add_Click;
         // 
         // button_remove
         // 
-        button_remove.Location = new Point(329, 117);
+        button_remove.Location = new Point(322, 117);
         button_remove.Name = "button_remove";
-        button_remove.Size = new Size(94, 29);
+        button_remove.Size = new Size(101, 29);
         button_remove.TabIndex = 3;
-        button_remove.Text = "刪除";
+        button_remove.Text = "刪除(D)";
         button_remove.UseVisualStyleBackColor = true;
         button_remove.Click += button_remove_Click;
         // 
         // button_rename
         // 
-        button_rename.Location = new Point(329, 82);
+        button_rename.Location = new Point(322, 82);
         button_rename.Name = "button_rename";
-        button_rename.Size = new Size(94, 29);
+        button_rename.Size = new Size(101, 29);
         button_rename.TabIndex = 4;
-        button_rename.Text = "重新命名";
+        button_rename.Text = "重新命名(R)";
         button_rename.UseVisualStyleBackColor = true;
         button_rename.Click += button_rename_Click;
         // 
         // button_exit
         // 
-        button_exit.Location = new Point(329, 152);
+        button_exit.Location = new Point(322, 152);
         button_exit.Name = "button_exit";
-        button_exit.Size = new Size(94, 29);
+        button_exit.Size = new Size(101, 29);
         button_exit.TabIndex = 5;
-        button_exit.Text = "離開";
+        button_exit.Text = "離開(Q)";
         button_exit.UseVisualStyleBackColor = true;
         button_exit.Click += button_exit_Click;
         // 

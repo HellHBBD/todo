@@ -37,22 +37,22 @@ namespace todo
         private void MarkTaskDates()
         {
             DateTime[] taskDates = curUser.taskList.Values
-                .Where(task => task.TaskDate != default(DateTime))
-                .Select(task => task.TaskDate.Date)
+                .Where(task => task.date != default(DateTime))
+                .Select(task => task.date.Date)
                 .Distinct()
                 .ToArray();
 
             monthCalendar.BoldedDates = taskDates;
         }
 
-        private void MonthCalendar_DateSelected(object sender, DateRangeEventArgs e)
+        private void MonthCalendar_DateSelected(object? sender, DateRangeEventArgs e)
         {
             listBoxTasks.Items.Clear();
 
             DateTime selectedDate = e.Start.Date;
 
             var tasksOnSelectedDate = curUser.taskList.Values
-                .Where(task => task.TaskDate.Date == selectedDate)
+                .Where(task => task.date.Date == selectedDate)
                 .Select(task => task.name);
 
             listBoxTasks.Items.AddRange(tasksOnSelectedDate.ToArray());

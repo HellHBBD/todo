@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace todo
 {
@@ -54,7 +55,8 @@ namespace todo
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            formhome.AddCheckBox(taskName);
+            DateTime d = dateTimePicker_task.Value;
+            formhome.AddCheckBox(taskName, d);
         }
         void modify()
         {
@@ -67,11 +69,13 @@ namespace todo
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            DateTime d = dateTimePicker_task.Value;
             /* modify task name */
             Task taskToUpdate = Program.currentuser.taskList[oldTask];
             Program.currentuser.taskList.Remove(oldTask);
             taskToUpdate.name = textBox_input.Text;
-            taskToUpdate.TaskCheckBox.Text = textBox_input.Text;
+            taskToUpdate.date = d;
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
 
             /* update checkBox.Text */

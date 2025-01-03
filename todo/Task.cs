@@ -11,19 +11,14 @@ namespace todo
     public class Task
     {
         public string name;
-        //public string description;
-        public CheckBox TaskCheckBox = new CheckBox();
-        public DateTime TaskDate { get; set; } // 新增日期屬性
+        public DateTime date;
+        public string description = "";
+        public bool Checked;
+        public int important;
 
         public Task(string name)
         {
             this.name = name;
-        }
-
-        public Task(string Name, DateTime taskDate)
-        {
-            name = Name;
-            TaskDate = taskDate;
         }
     }
 }
