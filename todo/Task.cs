@@ -20,5 +20,29 @@ namespace todo
         {
             this.name = name;
         }
+
+        public override bool Equals(object? obj)
+        {
+            var item = obj as Task;
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            return name.Equals(item.name) && date.Equals(item.date) && description.Equals(item.description) && important.Equals(item.important);
+        }
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            hash = hash * 23 + (name != null ? name.GetHashCode() : 0);
+            hash = hash * 23 + date.GetHashCode();
+            hash = hash * 23 + (description != null ? description.GetHashCode() : 0);
+            hash = hash * 23 + important.GetHashCode();
+
+            return hash;
+        }
+
     }
 }
