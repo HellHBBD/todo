@@ -26,26 +26,6 @@ namespace todo
             status = EditStatus.Add;
             label_name.Text = "任務名稱：";
             oldTask = textBox_input.Text = "";
-            // 建立資料表
-            DataTable dt = new DataTable();
-            dt.Columns.Add("顯示文字");
-            dt.Columns.Add("值");
-
-            dt.Rows.Add("1", 1);
-            dt.Rows.Add("2", 2);
-            dt.Rows.Add("3", 3);
-            dt.Rows.Add("4", 4);
-            dt.Rows.Add("5", 5);
-            dt.Rows.Add("6", 6);
-            dt.Rows.Add("7", 7);
-            dt.Rows.Add("8", 8);
-            dt.Rows.Add("9", 9);
-            dt.Rows.Add("10", 10);
-            // 綁定資料
-            comboBox_imortamt.DataSource = dt;
-            comboBox_imortamt.DisplayMember = "顯示文字";  // 顯示在下拉選單中的文字
-            comboBox_imortamt.ValueMember = "值";         // 實際值
-
             formhome = home;
         }
 
@@ -57,26 +37,6 @@ namespace todo
             label_name.Text = "新任務名稱：";
             oldTask = textBox_input.Text = task;
             formhome = home;
-            // 建立資料表
-            DataTable dt = new DataTable();
-            dt.Columns.Add("顯示文字");
-            dt.Columns.Add("值");
-
-            dt.Rows.Add("1", 1);
-            dt.Rows.Add("2", 2);
-            dt.Rows.Add("3", 3);
-            dt.Rows.Add("4", 4);
-            dt.Rows.Add("5", 5);
-            dt.Rows.Add("6", 6);
-            dt.Rows.Add("7", 7);
-            dt.Rows.Add("8", 8);
-            dt.Rows.Add("9", 9);
-            dt.Rows.Add("10", 10);
-            // 綁定資料
-            comboBox_imortamt.DataSource = dt;
-            comboBox_imortamt.DisplayMember = "顯示文字";  // 顯示在下拉選單中的文字
-            comboBox_imortamt.ValueMember = "值";         // 實際值
-
             textBox_input.Focus();
             textBox_input.SelectAll();
         }
@@ -96,7 +56,7 @@ namespace todo
                 return;
             }
             DateTime d = dateTimePicker_task.Value;
-            int important = comboBox_imortamt.SelectedIndex+1;
+            int important = comboBox_imortamt.SelectedIndex + 1;
             formhome.AddCheckBox(taskName, d, important);
         }
         void modify()
