@@ -62,13 +62,6 @@ namespace todo
             Program.mainForm = new Form_login();
             Close();
         }
-
-        private void 查看月曆ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Calendar calendarForm = new Calendar(Program.currentuser);
-            calendarForm.ShowDialog();
-        }
-
         private void Form_home_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -106,7 +99,7 @@ namespace todo
                 }
             }
         }
-        public void AddCheckBox(string text,DateTime date)
+        public void AddCheckBox(string text, DateTime date)
         {
             Task newTask = new Task(text);
             newTask.date = date;
@@ -120,6 +113,10 @@ namespace todo
             File.WriteAllText("data.json", jsonString, Encoding.UTF8);
         }
 
-        
+        private void 月曆ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Calendar calendarForm = new Calendar(Program.currentuser);
+            calendarForm.ShowDialog();
+        }
     }
 }
