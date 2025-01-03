@@ -26,7 +26,7 @@ namespace todo
             DisplayTasks();
         }
 
-        private void Form_quadrant_Paint(object sender, PaintEventArgs e)
+        private void Form_quadrant_Paint(object? sender, PaintEventArgs e)
         {
             DrawCoordinateSystem(e.Graphics);
         }
@@ -104,7 +104,7 @@ namespace todo
             }
         }
 
-        private void Form_quadrant_Resize(object sender, EventArgs e)
+        private void Form_quadrant_Resize(object? sender, EventArgs e)
         {
             this.Invalidate(); // 重繪坐標系
             DisplayTasks();    // 更新任務標籤位置
