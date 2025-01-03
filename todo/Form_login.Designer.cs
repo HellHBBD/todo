@@ -42,15 +42,15 @@ partial class Form_login
         listBox.ItemHeight = 19;
         listBox.Location = new Point(12, 12);
         listBox.Name = "listBox";
-        listBox.Size = new Size(304, 346);
+        listBox.Size = new Size(300, 346);
         listBox.TabIndex = 0;
         listBox.KeyDown += listBox_KeyDown;
         // 
         // button_open
         // 
-        button_open.Location = new Point(322, 12);
+        button_open.Location = new Point(318, 12);
         button_open.Name = "button_open";
-        button_open.Size = new Size(101, 29);
+        button_open.Size = new Size(100, 30);
         button_open.TabIndex = 1;
         button_open.Text = "開啟(O)";
         button_open.UseVisualStyleBackColor = true;
@@ -58,9 +58,9 @@ partial class Form_login
         // 
         // button_add
         // 
-        button_add.Location = new Point(322, 47);
+        button_add.Location = new Point(318, 48);
         button_add.Name = "button_add";
-        button_add.Size = new Size(101, 29);
+        button_add.Size = new Size(100, 30);
         button_add.TabIndex = 2;
         button_add.Text = "新增(A)";
         button_add.UseVisualStyleBackColor = true;
@@ -68,9 +68,9 @@ partial class Form_login
         // 
         // button_remove
         // 
-        button_remove.Location = new Point(322, 117);
+        button_remove.Location = new Point(318, 120);
         button_remove.Name = "button_remove";
-        button_remove.Size = new Size(101, 29);
+        button_remove.Size = new Size(100, 30);
         button_remove.TabIndex = 3;
         button_remove.Text = "刪除(D)";
         button_remove.UseVisualStyleBackColor = true;
@@ -78,9 +78,9 @@ partial class Form_login
         // 
         // button_rename
         // 
-        button_rename.Location = new Point(322, 82);
+        button_rename.Location = new Point(318, 84);
         button_rename.Name = "button_rename";
-        button_rename.Size = new Size(101, 29);
+        button_rename.Size = new Size(100, 30);
         button_rename.TabIndex = 4;
         button_rename.Text = "重新命名(R)";
         button_rename.UseVisualStyleBackColor = true;
@@ -88,9 +88,9 @@ partial class Form_login
         // 
         // button_exit
         // 
-        button_exit.Location = new Point(322, 152);
+        button_exit.Location = new Point(318, 156);
         button_exit.Name = "button_exit";
-        button_exit.Size = new Size(101, 29);
+        button_exit.Size = new Size(100, 30);
         button_exit.TabIndex = 5;
         button_exit.Text = "離開(Q)";
         button_exit.UseVisualStyleBackColor = true;
@@ -100,16 +100,18 @@ partial class Form_login
         // 
         AutoScaleDimensions = new SizeF(9F, 19F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(435, 376);
+        ClientSize = new Size(430, 374);
         Controls.Add(button_exit);
         Controls.Add(button_rename);
         Controls.Add(button_remove);
         Controls.Add(button_add);
         Controls.Add(button_open);
         Controls.Add(listBox);
+        MinimumSize = new Size(448, 421);
         Name = "Form_login";
         Text = "選擇使用者";
         FormClosing += Form_login_FormClosing;
+        Resize += Form_login_Resize;
         ResumeLayout(false);
     }
 

@@ -5,6 +5,8 @@ namespace todo;
 
 public partial class Form_login : Form
 {
+    const int margin = 12;
+    const int padding = 6;
     void updateListBox()
     {
         listBox.Items.Clear();
@@ -115,5 +117,32 @@ public partial class Form_login : Form
             button_exit_Click(sender, e);
             e.SuppressKeyPress = true;
         }
+    }
+
+    private void Form_login_Resize(object sender, EventArgs e)
+    {
+        listBox.Width = Width - 2 * margin - padding - 100 - 20;
+        listBox.Height = Height - 2 * margin - 40;
+
+        int x = listBox.Width + margin + padding;
+        int y = margin;
+        button_open.Left = x;
+        button_open.Top = y;
+
+        y += (padding + 30);
+        button_add.Left = x;
+        button_add.Top = y;
+
+        y += (padding + 30);
+        button_rename.Left = x;
+        button_rename.Top = y;
+
+        y += (padding + 30);
+        button_remove.Left = x;
+        button_remove.Top = y;
+
+        y += (padding + 30);
+        button_exit.Left = x;
+        button_exit.Top = y;
     }
 }
