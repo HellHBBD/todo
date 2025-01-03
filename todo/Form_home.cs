@@ -94,7 +94,9 @@ namespace todo
                 {
                     /* store the text */
                     string taskText = clickedCheckBox.Text;
-                    Form_edit form = new Form_edit(this, taskText);
+                    DateTime taskDate = Program.currentuser.taskList[taskText].date;
+                    int taskImpo = Program.currentuser.taskList[taskText].important;
+                    Form_edit form = new Form_edit(this, taskText, taskDate, taskImpo);
                     form.ShowDialog();
                 }
             }
