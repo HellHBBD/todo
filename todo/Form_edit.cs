@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace todo
 {
@@ -36,13 +37,12 @@ namespace todo
             label_name.Text = "新任務名稱：";
             oldTask = textBox_input.Text = task;
             formhome = home;
-
             textBox_input.Focus();
             textBox_input.SelectAll();
         }
         private void add()
         {
-            if (textBox_input.Text == "")
+            if (string.IsNullOrWhiteSpace(textBox_input.Text))
             {
                 return;
             }
@@ -56,26 +56,29 @@ namespace todo
                 return;
             }
             DateTime d = dateTimePicker_task.Value;
-            formhome.AddCheckBox(taskName, d);
+            int important = comboBox_imortamt.SelectedIndex + 1;
+            formhome.AddCheckBox(taskName, d, important);
         }
         void modify()
         {
-            if (string.IsNullOrWhiteSpace(textBox_input.Text) || textBox_input.Text == oldTask)
+            if (string.IsNullOrWhiteSpace(textBox_input.Text))
             {
                 return;
             }
-            if (Program.currentuser.taskList.ContainsKey(textBox_input.Text))
+            if (textBox_input.Text != oldTask && Program.currentuser.taskList.ContainsKey(textBox_input.Text))
             {
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             DateTime d = dateTimePicker_task.Value;
+            int important = comboBox_imortamt.SelectedIndex + 1;
             /* modify task name */
             Task taskToUpdate = Program.currentuser.taskList[oldTask];
             Program.currentuser.taskList.Remove(oldTask);
             taskToUpdate.name = textBox_input.Text;
             taskToUpdate.date = d;
+            taskToUpdate.important = important;
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
 
             /* update checkBox.Text */
