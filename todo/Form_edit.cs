@@ -42,7 +42,7 @@ namespace todo
         }
         private void add()
         {
-            if (textBox_input.Text == "")
+            if (string.IsNullOrWhiteSpace(textBox_input.Text))
             {
                 return;
             }
@@ -65,7 +65,7 @@ namespace todo
             {
                 return;
             }
-            if (Program.currentuser.taskList.ContainsKey(textBox_input.Text))
+            if (textBox_input.Text != oldTask && Program.currentuser.taskList.ContainsKey(textBox_input.Text))
             {
                 MessageBox.Show("任務已存在", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
