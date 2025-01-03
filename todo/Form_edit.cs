@@ -56,7 +56,7 @@ namespace todo
                 return;
             }
             DateTime d = dateTimePicker_task.Value;
-            formhome.AddCheckBox(taskName,d);
+            formhome.AddCheckBox(taskName, d);
         }
         void modify()
         {

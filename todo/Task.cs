@@ -12,18 +12,13 @@ namespace todo
     {
         public string name;
         public DateTime date;
-        //public string description;
+        public string description = "";
         public bool Checked;
+        public int important;
 
         public Task(string name)
         {
             this.name = name;
         }
-
-        //public Task(string Name, DateTime taskDate)
-        //{
-        //    name = Name;
-        //    TaskDate = taskDate;
-        //}
     }
 }
