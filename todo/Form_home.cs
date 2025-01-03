@@ -118,5 +118,11 @@ namespace todo
             Calendar calendarForm = new Calendar(Program.currentuser);
             calendarForm.ShowDialog();
         }
+
+        private void 象限圖ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form_quadrant quadrant = new Form_quadrant(Program.currentuser);
+            quadrant.ShowDialog();
+        }
     }
 }
