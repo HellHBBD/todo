@@ -12,6 +12,7 @@ namespace todo
         private DateTimePicker dtpDate;
         private NumericUpDown numImportance;
         private TextBox txtDescription;
+        private string txtDescriptionText;
         private Button btnSave;
         private Button btnCancel;
 
@@ -26,7 +27,20 @@ namespace todo
             this.Size = new Size(400, 300);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            InitializeControls();
+        }
+        public Form_description(Form_edit form_Edit, string oldDescription)
+        {
+            InitializeComponent();
+            //currentTask = curtask;
+            formedit = form_Edit;
 
+            this.Text = "任務詳細資訊";
+            this.Size = new Size(400, 300);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            MessageBox.Show(oldDescription);
+            txtDescriptionText = oldDescription;
             InitializeControls();
         }
 
@@ -44,7 +58,7 @@ namespace todo
                 Width = 250,
                 Height = 60,
                 Multiline = true,
-                //Text = currentTask.description
+                Text = txtDescriptionText
             };
 
             btnSave = new Button
