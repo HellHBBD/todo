@@ -16,7 +16,7 @@ namespace todo
     public partial class Form_edit : Form
     {
         string oldTask;
-        string tempDescrip;
+        public string tempDescrip;
         EditStatus status;
         private Form_home formhome;
 
@@ -61,6 +61,7 @@ namespace todo
             }
             DateTime d = dateTimePicker_task.Value;
             int important = comboBox_imortamt.SelectedIndex + 1;
+            MessageBox.Show(tempDescrip, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             formhome.AddCheckBox(taskName, d, important, tempDescrip);
         }
         void modify()

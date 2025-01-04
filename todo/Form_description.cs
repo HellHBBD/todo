@@ -32,47 +32,6 @@ namespace todo
 
         private void InitializeControls()
         {
-            Label lblName = new Label
-            {
-                Text = "任務名稱：",
-                Location = new Point(20, 20),
-                AutoSize = true
-            };
-            txtName = new TextBox
-            {
-                Location = new Point(100, 20),
-                Width = 250,
-                //Text = currentTask.name
-            };
-
-            Label lblDate = new Label
-            {
-                Text = "任務日期：",
-                Location = new Point(20, 60),
-                AutoSize = true
-            };
-            dtpDate = new DateTimePicker
-            {
-                Location = new Point(100, 60),
-                //Value = currentTask.date,
-                Format = DateTimePickerFormat.Short
-            };
-
-            Label lblImportance = new Label
-            {
-                Text = "重要性：",
-                Location = new Point(20, 100),
-                AutoSize = true
-            };
-            numImportance = new NumericUpDown
-            {
-                Location = new Point(100, 100),
-                Minimum = 1,
-                Maximum = 10,
-                //Value = currentTask.important,
-                Width = 50
-            };
-
             Label lblDescription = new Label
             {
                 Text = "任務描述：",
@@ -104,12 +63,7 @@ namespace todo
             };
             btnCancel.Click += BtnCancel_Click;
 
-            this.Controls.Add(lblName);
-            this.Controls.Add(txtName);
-            this.Controls.Add(lblDate);
-            this.Controls.Add(dtpDate);
-            this.Controls.Add(lblImportance);
-            this.Controls.Add(numImportance);
+            
             this.Controls.Add(lblDescription);
             this.Controls.Add(txtDescription);
             this.Controls.Add(btnSave);
@@ -119,6 +73,7 @@ namespace todo
         private void BtnSave_Click(object sender, EventArgs e)
         {
             // 保存修改
+            formedit.tempDescrip = txtDescription.Text;
             //currentTask.name = txtName.Text;
             //currentTask.date = dtpDate.Value;
             //currentTask.important = (int)numImportance.Value;
