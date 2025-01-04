@@ -12,10 +12,13 @@ namespace todo
 {
     public partial class Form_description : Form
     {
-        public Form_description(Task curtask)
+        Form_edit formedit;
+        public Form_description(Form_edit form_Edit)
         {
             InitializeComponent();
+            formedit = form_Edit;
 
         }
+
     }
 }

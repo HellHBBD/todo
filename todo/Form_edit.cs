@@ -61,7 +61,7 @@ namespace todo
             }
             DateTime d = dateTimePicker_task.Value;
             int important = comboBox_imortamt.SelectedIndex + 1;
-            formhome.AddCheckBox(taskName, d, important);
+            formhome.AddCheckBox(taskName, d, important, tempDescrip);
         }
         void modify()
         {
@@ -127,7 +127,7 @@ namespace todo
 
         private void button_descrip_Click(object sender, EventArgs e)
         {
-            Form_description form_Description = new Form_description();
+            Form_description form_Description = new Form_description(this);
             form_Description.ShowDialog();
         }
     }
