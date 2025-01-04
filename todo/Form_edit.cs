@@ -16,6 +16,7 @@ namespace todo
     public partial class Form_edit : Form
     {
         string oldTask;
+        string tempDescrip;
         EditStatus status;
         private Form_home formhome;
 
@@ -122,6 +123,12 @@ namespace todo
                 button_cancel_Click(sender, e);
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void button_descrip_Click(object sender, EventArgs e)
+        {
+            Form_description form_Description = new Form_description();
+            form_Description.ShowDialog();
         }
     }
 }

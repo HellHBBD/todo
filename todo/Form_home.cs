@@ -43,6 +43,7 @@ namespace todo
                 };
                 /* bind event handler */
                 checkBox.MouseDown += Form_home_Checkbox_MouseDown;
+
                 Controls.Add(checkBox);
                 taskIndex++;
             }
@@ -101,11 +102,12 @@ namespace todo
                 }
             }
         }
-        public void AddCheckBox(string text, DateTime date, int important)
+        public void AddCheckBox(string text, DateTime date, int important, string descrip)
         {
             Task newTask = new Task(text);
             newTask.date = date;
             newTask.important = important;
+            newTask.description = descrip;
             Program.currentuser.taskList[text] = newTask;
             updateCheckBox();
         }
