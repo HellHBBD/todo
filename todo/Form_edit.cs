@@ -16,6 +16,7 @@ namespace todo
     public partial class Form_edit : Form
     {
         string oldTask;
+        string tempDescrip;
         EditStatus status;
         private Form_home formhome;
 
@@ -27,16 +28,19 @@ namespace todo
             label_name.Text = "任務名稱：";
             oldTask = textBox_input.Text = "";
             formhome = home;
+            comboBox_imortamt.SelectedIndex = 0;
         }
 
         /* edit old mission */
-        public Form_edit(Form_home home, string task)
+        public Form_edit(Form_home home, string task, DateTime date, int important)
         {
             InitializeComponent();
             status = EditStatus.Modify;
             label_name.Text = "新任務名稱：";
             oldTask = textBox_input.Text = task;
             formhome = home;
+            dateTimePicker_task.Value = date;
+            comboBox_imortamt.SelectedIndex = important - 1;
             textBox_input.Focus();
             textBox_input.SelectAll();
         }
@@ -119,6 +123,12 @@ namespace todo
                 button_cancel_Click(sender, e);
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void button_descrip_Click(object sender, EventArgs e)
+        {
+            Form_description form_Description = new Form_description();
+            form_Description.ShowDialog();
         }
     }
 }
