@@ -14,6 +14,7 @@ namespace todo
 {
     public partial class Form_home : Form
     {
+        private Form progressForm;
         string username;
         void updateCheckBox()
         {
@@ -43,6 +44,8 @@ namespace todo
                 };
                 /* bind event handler */
                 checkBox.MouseDown += Form_home_Checkbox_MouseDown;
+                checkBox.MouseEnter += CheckBox_MouseEnter;
+                checkBox.MouseLeave += CheckBox_MouseLeave;
 
                 Controls.Add(checkBox);
                 taskIndex++;
@@ -109,6 +112,7 @@ namespace todo
             newTask.date = date;
             newTask.important = important;
             newTask.description = descrip;
+            newTask.percentage = 10;
             Program.currentuser.taskList[text] = newTask;
             updateCheckBox();
         }
@@ -129,6 +133,46 @@ namespace todo
         {
             Form_quadrant quadrant = new Form_quadrant(Program.currentuser);
             quadrant.ShowDialog();
+        }
+        private void InitializeProgressForm(int progressrate)
+        {
+            // 創建小表單
+            progressForm = new Form
+            {
+                Size = new Size(50, 20),
+                FormBorderStyle = FormBorderStyle.None, // 無邊框
+                StartPosition = FormStartPosition.Manual, // 手動定位
+                TopMost = true, // 保持在最前
+                ShowInTaskbar = false, // 不在任務欄顯示
+                BackColor = Color.LightGray
+            };
+            // 添加進度條
+            ProgressBar progressBar = new ProgressBar
+            {
+                //Dock = DockStyle.Top,
+                Minimum = 0,
+                Maximum = 100,
+                Value = progressrate // 假設的進度
+            };
+            //MessageBox.Show(Program.currentuser.taskList[checkBox.Text].percentage.ToString());
+            progressForm.Controls.Add(progressBar);
+        }
+        private void CheckBox_MouseEnter(object? sender, EventArgs e)
+        {
+            // 獲取 CheckBox 的螢幕位置
+            CheckBox? checkBox = sender as CheckBox;
+            Point location = checkBox.PointToScreen(new Point(0, checkBox.Height));
+
+            InitializeProgressForm(Program.currentuser.taskList[checkBox.Text].percentage);
+            // 設定小表單位置並顯示
+            progressForm.Location = location;
+            progressForm.Show();
+        }
+
+        private void CheckBox_MouseLeave(object? sender, EventArgs e)
+        {
+            // 隱藏小表單
+            progressForm.Hide();
         }
     }
 }

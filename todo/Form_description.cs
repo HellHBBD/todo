@@ -39,7 +39,6 @@ namespace todo
             this.Size = new Size(400, 300);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            MessageBox.Show(oldDescription);
             txtDescriptionText = oldDescription;
             InitializeControls();
         }
