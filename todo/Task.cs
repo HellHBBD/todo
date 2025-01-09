@@ -15,7 +15,7 @@ namespace todo
         public string description = "";
         public bool Checked;
         public int important;
-        public int percentage=10; // cP/pP
+        public int percentage; // cP/pP
         // public int progressPoint
         // public int completePoint
 

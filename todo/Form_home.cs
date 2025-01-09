@@ -112,7 +112,7 @@ namespace todo
             newTask.date = date;
             newTask.important = important;
             newTask.description = descrip;
-            newTask.percentage = 10;
+            //newTask.percentage = 10;
             Program.currentuser.taskList[text] = newTask;
             updateCheckBox();
         }
@@ -154,7 +154,6 @@ namespace todo
                 Maximum = 100,
                 Value = progressrate // 假設的進度
             };
-            //MessageBox.Show(Program.currentuser.taskList[checkBox.Text].percentage.ToString());
             progressForm.Controls.Add(progressBar);
         }
         private void CheckBox_MouseEnter(object? sender, EventArgs e)
