@@ -16,7 +16,7 @@ namespace todo
     public partial class Form_edit : Form
     {
         string oldTask;
-        public string tempDescrip;
+        public string tempDescrip = "";
         EditStatus status;
         private Form_home formhome;
 

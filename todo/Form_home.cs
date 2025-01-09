@@ -15,7 +15,7 @@ namespace todo
     delegate void UpdateFunction();
     public partial class Form_home : Form
     {
-        private Form progressForm;
+        private Form? progressForm;
         string username;
         UpdateFunction update;
         public void defaultUpdate()
@@ -175,18 +175,24 @@ namespace todo
         {
             // 獲取 CheckBox 的螢幕位置
             CheckBox? checkBox = sender as CheckBox;
-            Point location = checkBox.PointToScreen(new Point(0, checkBox.Height));
+            if (checkBox != null && progressForm != null)
+            {
+                Point location = checkBox.PointToScreen(new Point(0, checkBox.Height));
 
-            InitializeProgressForm(Program.currentuser.taskList[checkBox.Text].percentage);
-            // 設定小表單位置並顯示
-            progressForm.Location = location;
-            progressForm.Show();
+                InitializeProgressForm(Program.currentuser.taskList[checkBox.Text].percentage);
+                // 設定小表單位置並顯示
+                progressForm.Location = location;
+                progressForm.Show();
+            }
         }
 
         private void CheckBox_MouseLeave(object? sender, EventArgs e)
         {
-            // 隱藏小表單
-            progressForm.Hide();
+            if (progressForm != null)
+            {
+                // 隱藏小表單
+                progressForm.Hide();
+            }
         }
 
         private void button_remove_Click(object sender, EventArgs e)

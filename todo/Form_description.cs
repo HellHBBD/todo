@@ -8,7 +8,6 @@ namespace todo
     {
         private TextBox txtDescription;
         private string description;
-
         public Form_description(string initialDescription)
         {
             InitializeComponent();
