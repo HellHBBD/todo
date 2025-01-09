@@ -29,10 +29,11 @@ namespace todo
             oldTask = textBox_input.Text = "";
             formhome = home;
             comboBox_imortamt.SelectedIndex = 0;
+            button_remove.Visible = false;
         }
 
         /* edit old mission */
-        public Form_edit(Form_home home, string task, DateTime date, int important)
+        public Form_edit(Form_home home, string task, DateTime date, int important, string description)
         {
             InitializeComponent();
             status = EditStatus.Modify;
@@ -62,7 +63,6 @@ namespace todo
             }
             DateTime d = dateTimePicker_task.Value;
             int important = comboBox_imortamt.SelectedIndex + 1;
-            MessageBox.Show(tempDescrip, "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             formhome.AddCheckBox(taskName, d, important, tempDescrip);
         }
         void modify()
@@ -87,14 +87,6 @@ namespace todo
             taskToUpdate.important = important;
             taskToUpdate.description = tempDescrip; // 更新描述
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
-
-            /* update checkBox.Text */
-            var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
-                .FirstOrDefault(cb => cb.Text == oldTask);
-            if (checkBoxToUpdate != null)
-            {
-                checkBoxToUpdate.Text = textBox_input.Text;
-            }
         }
 
         private void button_confirm_Click(object sender, EventArgs e)
@@ -135,6 +127,12 @@ namespace todo
 
             // 視窗關閉後，自動更新描述
             tempDescrip = form_Description.GetDescription();
+        }
+
+        private void button_remove_Click(object sender, EventArgs e)
+        {
+            Program.currentuser.taskList.Remove(oldTask);
+            Close();
         }
     }
 }
