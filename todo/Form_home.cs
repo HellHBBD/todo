@@ -16,7 +16,6 @@ namespace todo
     public partial class Form_home : Form
     {
         private Form progressForm;
-        string username;
         UpdateFunction update;
         public void defaultUpdate()
         {
@@ -54,8 +53,8 @@ namespace todo
                 };
                 /* bind event handler */
                 checkBox.MouseDown += Form_home_Checkbox_MouseDown;
-                checkBox.MouseEnter += CheckBox_MouseEnter;
-                checkBox.MouseLeave += CheckBox_MouseLeave;
+                //checkBox.MouseEnter += CheckBox_MouseEnter;
+                //checkBox.MouseLeave += CheckBox_MouseLeave;
 
                 Controls.Add(checkBox);
                 taskIndex++;
@@ -120,8 +119,8 @@ namespace todo
 
                 // 綁定事件處理程序
                 checkBox.MouseDown += Form_home_Checkbox_MouseDown;
-                checkBox.MouseEnter += CheckBox_MouseEnter;
-                checkBox.MouseLeave += CheckBox_MouseLeave;
+                //checkBox.MouseEnter += CheckBox_MouseEnter;
+                //checkBox.MouseLeave += CheckBox_MouseLeave;
 
                 Controls.Add(checkBox);
                 taskIndex++;
@@ -165,10 +164,10 @@ namespace todo
             // 綜合計算分數
             return 0.5 * urgency + 0.5 * importance;
         }
-        public Form_home(User user)
+        public Form_home()
         {
             InitializeComponent();
-            Text = username = user.name;
+            Text = Program.currentuser.name;
             update = defaultUpdate;
             update();
         }
@@ -249,7 +248,7 @@ namespace todo
 
         private void 象限圖ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_quadrant quadrant = new Form_quadrant(Program.currentuser);
+            Form_quadrant quadrant = new Form_quadrant();
             quadrant.ShowDialog();
         }
         private void InitializeProgressForm(int progressrate)
@@ -274,23 +273,23 @@ namespace todo
             };
             progressForm.Controls.Add(progressBar);
         }
-        private void CheckBox_MouseEnter(object? sender, EventArgs e)
-        {
-            // 獲取 CheckBox 的螢幕位置
-            CheckBox? checkBox = sender as CheckBox;
-            Point location = checkBox.PointToScreen(new Point(0, checkBox.Height));
+        //private void CheckBox_MouseEnter(object? sender, EventArgs e)
+        //{
+        //    // 獲取 CheckBox 的螢幕位置
+        //    CheckBox? checkBox = sender as CheckBox;
+        //    Point location = checkBox.PointToScreen(new Point(0, checkBox.Height));
 
-            InitializeProgressForm(Program.currentuser.taskList[checkBox.Text].percentage);
-            // 設定小表單位置並顯示
-            progressForm.Location = location;
-            progressForm.Show();
-        }
+        //    InitializeProgressForm(Program.currentuser.taskList[checkBox.Text].percentage);
+        //    // 設定小表單位置並顯示
+        //    progressForm.Location = location;
+        //    progressForm.Show();
+        //}
 
-        private void CheckBox_MouseLeave(object? sender, EventArgs e)
-        {
-            // 隱藏小表單
-            progressForm.Hide();
-        }
+        //private void CheckBox_MouseLeave(object? sender, EventArgs e)
+        //{
+        //    // 隱藏小表單
+        //    progressForm.Hide();
+        //}
 
         private void 以緊急重要程度排序ToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -86,7 +86,7 @@ public partial class Form_login : Form
         {
             /* change mainForm to Form_home and exit Form_login */
             Program.currentuser = Program.userList[userName];
-            Program.mainForm = new Form_home(Program.currentuser);
+            Program.mainForm = new Form_home();
             Close();
         }
     }

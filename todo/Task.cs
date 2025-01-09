@@ -16,7 +16,7 @@ namespace todo
         public bool Checked;
         public int important;
         public double priority;
-        public int percentage; // cP/pP
+        //public int percentage; // cP/pP
         // public int progressPoint
         // public int completePoint
 
