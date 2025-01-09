@@ -122,9 +122,8 @@ namespace todo
 
         private void button_descrip_Click(object sender, EventArgs e)
         {
-            // 傳入目前描述
             Form_description form_Description = new Form_description(tempDescrip);
-            form_Description.ShowDialog(); // 顯示描述視窗
+            form_Description.ShowDialog();
 
             // 視窗關閉後，自動更新描述
             tempDescrip = form_Description.GetDescription();
