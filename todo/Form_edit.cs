@@ -16,6 +16,7 @@ namespace todo
     public partial class Form_edit : Form
     {
         string oldTask;
+        public string tempDescrip;
         EditStatus status;
         private Form_home formhome;
 
@@ -31,7 +32,7 @@ namespace todo
         }
 
         /* edit old mission */
-        public Form_edit(Form_home home, string task, DateTime date, int important)
+        public Form_edit(Form_home home, string task, DateTime date, int important, string description)
         {
             InitializeComponent();
             status = EditStatus.Modify;
@@ -40,6 +41,7 @@ namespace todo
             formhome = home;
             dateTimePicker_task.Value = date;
             comboBox_imortamt.SelectedIndex = important - 1;
+            tempDescrip = description;
             textBox_input.Focus();
             textBox_input.SelectAll();
         }
@@ -60,7 +62,7 @@ namespace todo
             }
             DateTime d = dateTimePicker_task.Value;
             int important = comboBox_imortamt.SelectedIndex + 1;
-            formhome.AddCheckBox(taskName, d, important);
+            formhome.AddCheckBox(taskName, d, important, tempDescrip);
         }
         void modify()
         {
@@ -82,6 +84,7 @@ namespace todo
             taskToUpdate.name = textBox_input.Text;
             taskToUpdate.date = d;
             taskToUpdate.important = important;
+            taskToUpdate.description = tempDescrip;
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
 
             /* update checkBox.Text */
@@ -121,6 +124,20 @@ namespace todo
             {
                 button_cancel_Click(sender, e);
                 e.SuppressKeyPress = true;
+            }
+        }
+
+        private void button_descrip_Click(object sender, EventArgs e)
+        {
+            if (status == EditStatus.Add)
+            {
+                Form_description form_Description = new Form_description(this);
+                form_Description.ShowDialog();
+            }
+            if (status == EditStatus.Modify)
+            {
+                Form_description form_Description = new Form_description(this,tempDescrip);
+                form_Description.ShowDialog();
             }
         }
     }

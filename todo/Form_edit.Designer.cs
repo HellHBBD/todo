@@ -36,6 +36,7 @@
             dateTimePicker_task = new DateTimePicker();
             label1 = new Label();
             comboBox_imortamt = new ComboBox();
+            button_descrip = new Button();
             SuspendLayout();
             // 
             // label_name
@@ -111,11 +112,22 @@
             comboBox_imortamt.Size = new Size(151, 27);
             comboBox_imortamt.TabIndex = 7;
             // 
+            // button_descrip
+            // 
+            button_descrip.Location = new Point(12, 139);
+            button_descrip.Name = "button_descrip";
+            button_descrip.Size = new Size(94, 29);
+            button_descrip.TabIndex = 8;
+            button_descrip.Text = "詳述";
+            button_descrip.UseVisualStyleBackColor = true;
+            button_descrip.Click += button_descrip_Click;
+            // 
             // Form_edit
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(482, 180);
+            Controls.Add(button_descrip);
             Controls.Add(comboBox_imortamt);
             Controls.Add(label1);
             Controls.Add(dateTimePicker_task);
@@ -140,5 +152,6 @@
         private DateTimePicker dateTimePicker_task;
         private Label label1;
         private ComboBox comboBox_imortamt;
+        private Button button_descrip;
     }
 }
