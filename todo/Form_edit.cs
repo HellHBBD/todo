@@ -29,6 +29,7 @@ namespace todo
             oldTask = textBox_input.Text = "";
             formhome = home;
             comboBox_imortamt.SelectedIndex = 0;
+            button_remove.Visible = false;
         }
 
         /* edit old mission */
@@ -86,14 +87,6 @@ namespace todo
             taskToUpdate.important = important;
             taskToUpdate.description = tempDescrip;
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
-
-            /* update checkBox.Text */
-            var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
-                .FirstOrDefault(cb => cb.Text == oldTask);
-            if (checkBoxToUpdate != null)
-            {
-                checkBoxToUpdate.Text = textBox_input.Text;
-            }
         }
 
         private void button_confirm_Click(object sender, EventArgs e)
@@ -136,9 +129,15 @@ namespace todo
             }
             if (status == EditStatus.Modify)
             {
-                Form_description form_Description = new Form_description(this,tempDescrip);
+                Form_description form_Description = new Form_description(this, tempDescrip);
                 form_Description.ShowDialog();
             }
+        }
+
+        private void button_remove_Click(object sender, EventArgs e)
+        {
+            Program.currentuser.taskList.Remove(oldTask);
+            Close();
         }
     }
 }

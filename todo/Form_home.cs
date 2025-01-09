@@ -16,8 +16,16 @@ namespace todo
     {
         private Form progressForm;
         string username;
-        void updateCheckBox()
+        public void updateCheckBox()
         {
+            for (int i = Controls.Count - 1; i >= 0; i--)
+            {
+                if (Controls[i] is CheckBox)
+                {
+                    Controls.RemoveAt(i);
+                }
+            }
+
             int initialX = 20;
             int initialY = 30;
             int rowHeight = 30;
@@ -76,6 +84,7 @@ namespace todo
                 {
                     Form_edit form = new Form_edit(this);
                     form.ShowDialog();
+                    updateCheckBox();
                 }
             }
         }
@@ -103,6 +112,7 @@ namespace todo
                     string taskDes = Program.currentuser.taskList[taskText].description;
                     Form_edit form = new Form_edit(this, taskText, taskDate, taskImpo, taskDes);
                     form.ShowDialog();
+                    updateCheckBox();
                 }
             }
         }
@@ -119,8 +129,9 @@ namespace todo
 
         private void Form_home_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string jsonString = JsonConvert.SerializeObject(Program.userList);
-            File.WriteAllText("data.json", jsonString, Encoding.UTF8);
+            //TODO
+            //string jsonString = JsonConvert.SerializeObject(Program.userList);
+            //File.WriteAllText("data.json", jsonString, Encoding.UTF8);
         }
 
         private void 月曆ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -173,6 +184,53 @@ namespace todo
         {
             // 隱藏小表單
             progressForm.Hide();
+        }
+
+        private void button_remove_Click(object sender, EventArgs e)
+        {
+            for (int i = Controls.Count - 1; i >= 0; i--)
+            {
+                if (Controls[i] is CheckBox)
+                {
+                    Controls.RemoveAt(i);
+                }
+            }
+        }
+
+        private void button_update_Click(object sender, EventArgs e)
+        {
+            int initialX = 20;
+            int initialY = 30;
+            int rowHeight = 30;
+            int columnWidth = 150;
+            int maxRows = ClientSize.Height / rowHeight - 1;
+
+            int taskIndex = 0;
+
+
+            foreach (var item in Program.currentuser.taskList.Values)
+            {
+                int column = taskIndex / maxRows;
+                int row = taskIndex % maxRows;
+
+                int offsetX = initialX + column * columnWidth;
+                int offsetY = initialY + row * rowHeight;
+
+                CheckBox checkBox = new CheckBox
+                {
+                    Text = item.name,
+                    Location = new Point(offsetX, offsetY),
+                    Checked = item.Checked,
+                    AutoSize = true
+                };
+                /* bind event handler */
+                checkBox.MouseDown += Form_home_Checkbox_MouseDown;
+                checkBox.MouseEnter += CheckBox_MouseEnter;
+                checkBox.MouseLeave += CheckBox_MouseLeave;
+
+                Controls.Add(checkBox);
+                taskIndex++;
+            }
         }
     }
 }
