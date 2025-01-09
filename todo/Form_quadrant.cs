@@ -146,7 +146,7 @@ namespace todo
                 }
 
                 // 滑鼠懸停事件
-                taskLabel.MouseHover += (s, e) =>
+                taskLabel.MouseEnter += (s, e) =>
                 {
                     taskToolTip.Show(
                         $"任務名稱: {task.name}\n日期: {task.date.ToShortDateString()}\n重要性: {task.important}\n描述: {task.description}",
