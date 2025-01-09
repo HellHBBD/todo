@@ -38,8 +38,7 @@
             comboBox_imortamt = new ComboBox();
             button_descrip = new Button();
             button_remove = new Button();
-            button_prev = new Button();
-            button_next = new Button();
+            button_link = new Button();
             SuspendLayout();
             // 
             // label_name
@@ -144,31 +143,22 @@
             button_remove.UseVisualStyleBackColor = true;
             button_remove.Click += button_remove_Click;
             // 
-            // button_prev
+            // button_link
             // 
-            button_prev.Location = new Point(15, 155);
-            button_prev.Name = "button_prev";
-            button_prev.Size = new Size(112, 34);
-            button_prev.TabIndex = 10;
-            button_prev.Text = "prev";
-            button_prev.UseVisualStyleBackColor = true;
-            // 
-            // button_next
-            // 
-            button_next.Location = new Point(133, 155);
-            button_next.Name = "button_next";
-            button_next.Size = new Size(112, 34);
-            button_next.TabIndex = 11;
-            button_next.Text = "next";
-            button_next.UseVisualStyleBackColor = true;
+            button_link.Location = new Point(15, 155);
+            button_link.Name = "button_link";
+            button_link.Size = new Size(112, 34);
+            button_link.TabIndex = 10;
+            button_link.Text = "link";
+            button_link.UseVisualStyleBackColor = true;
+            button_link.Click += button_link_Click;
             // 
             // Form_edit
             // 
             AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(589, 247);
-            Controls.Add(button_next);
-            Controls.Add(button_prev);
+            Controls.Add(button_link);
             Controls.Add(button_remove);
             Controls.Add(button_descrip);
             Controls.Add(comboBox_imortamt);
@@ -198,7 +188,6 @@
         private ComboBox comboBox_imortamt;
         private Button button_descrip;
         private Button button_remove;
-        private Button button_prev;
-        private Button button_next;
+        private Button button_link;
     }
 }

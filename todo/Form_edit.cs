@@ -135,5 +135,11 @@ namespace todo
             Program.currentuser.taskList.Remove(oldTask);
             Close();
         }
+
+        private void button_link_Click(object sender, EventArgs e)
+        {
+            Form_link f = new Form_link(oldTask);
+            f.ShowDialog();
+        }
     }
 }
