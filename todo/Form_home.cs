@@ -136,18 +136,18 @@ namespace todo
             // 使用線性插值進行 RGB 分量計算
             int red, green;
 
-            if (clampedPriority <= 0.5)
+            if (clampedPriority  > 0.5)
             {
                 // 紅 -> 黃：紅色保持 255，綠色從 0 漸變到 255
-                double ratio = clampedPriority / 0.5; // normalize to [0, 1] for this range
+                double ratio = (clampedPriority - 0.5) / 0.5; // normalize to [0, 1] for this range
                 red = 255;
-                green = (int)(255 * ratio);
+                green = (int)(255 * (1 - ratio));
             }
             else
             {
                 // 黃 -> 綠：紅色從 255 漸變到 0，綠色保持 255
-                double ratio = (clampedPriority - 0.5) / 0.5; // normalize to [0, 1] for this range
-                red = (int)(255 * (1 - ratio));
+                double ratio = clampedPriority / 0.5; // normalize to [0, 1] for this range
+                red = (int)(255 * ratio);
                 green = 255;
             }
 
