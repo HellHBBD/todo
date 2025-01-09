@@ -29,6 +29,7 @@ namespace todo
             oldTask = textBox_input.Text = "";
             formhome = home;
             comboBox_imortamt.SelectedIndex = 0;
+            button_remove.Visible = false;
         }
 
         /* edit old mission */
@@ -41,7 +42,7 @@ namespace todo
             formhome = home;
             dateTimePicker_task.Value = date;
             comboBox_imortamt.SelectedIndex = important - 1;
-            tempDescrip = description;
+            tempDescrip = Program.currentuser.taskList[task].description;
             textBox_input.Focus();
             textBox_input.SelectAll();
         }
@@ -84,16 +85,8 @@ namespace todo
             taskToUpdate.name = textBox_input.Text;
             taskToUpdate.date = d;
             taskToUpdate.important = important;
-            taskToUpdate.description = tempDescrip;
+            taskToUpdate.description = tempDescrip; // 更新描述
             Program.currentuser.taskList[textBox_input.Text] = taskToUpdate;
-
-            /* update checkBox.Text */
-            var checkBoxToUpdate = formhome.Controls.OfType<CheckBox>()
-                .FirstOrDefault(cb => cb.Text == oldTask);
-            if (checkBoxToUpdate != null)
-            {
-                checkBoxToUpdate.Text = textBox_input.Text;
-            }
         }
 
         private void button_confirm_Click(object sender, EventArgs e)
@@ -129,16 +122,18 @@ namespace todo
 
         private void button_descrip_Click(object sender, EventArgs e)
         {
-            if (status == EditStatus.Add)
-            {
-                Form_description form_Description = new Form_description(this);
-                form_Description.ShowDialog();
-            }
-            if (status == EditStatus.Modify)
-            {
-                Form_description form_Description = new Form_description(this,tempDescrip);
-                form_Description.ShowDialog();
-            }
+            // 傳入目前描述
+            Form_description form_Description = new Form_description(tempDescrip);
+            form_Description.ShowDialog(); // 顯示描述視窗
+
+            // 視窗關閉後，自動更新描述
+            tempDescrip = form_Description.GetDescription();
+        }
+
+        private void button_remove_Click(object sender, EventArgs e)
+        {
+            Program.currentuser.taskList.Remove(oldTask);
+            Close();
         }
     }
 }
