@@ -71,10 +71,10 @@ namespace todo
             DateTime minDate = tasks.Min(t => t.date);
             DateTime maxDate = tasks.Max(t => t.date);
 
-            int width = this.ClientSize.Width - 100; 
-            int height = this.ClientSize.Height - 70; 
-            int centerX = this.ClientSize.Width / 2; 
-            int centerY = this.ClientSize.Height / 2; 
+            int width = this.ClientSize.Width - 100;
+            int height = this.ClientSize.Height - 70;
+            int centerX = this.ClientSize.Width / 2;
+            int centerY = this.ClientSize.Height / 2;
 
             var taskPositionMap = new Dictionary<(DateTime date, int importance), List<Point>>();
 
@@ -100,7 +100,7 @@ namespace todo
                 {
                     // 偏移計算：讓新任務圍繞基礎位置排列
                     int offsetIndex = taskPositionMap[key].Count;
-                    int offsetX = (offsetIndex % 3 - 1) * 30; 
+                    int offsetX = (offsetIndex % 3 - 1) * 30;
                     int offsetY = (offsetIndex / 3) * 20; // 每三個向下移
 
                     // 加入偏移量
@@ -136,8 +136,8 @@ namespace todo
                 if (task.Checked)
                 {
                     taskLabel.BackColor = Color.LightGray;
-                    taskLabel.Font = new Font(taskLabel.Font, FontStyle.Strikeout); 
-                    taskLabel.ForeColor = Color.DarkGreen; 
+                    taskLabel.Font = new Font(taskLabel.Font, FontStyle.Strikeout);
+                    taskLabel.ForeColor = Color.DarkGreen;
                 }
                 else
                 {
@@ -168,7 +168,7 @@ namespace todo
         private void Form_quadrant_Resize(object? sender, EventArgs e)
         {
             this.Invalidate(); // 重繪坐標系
-            DisplayTasks(); 
+            DisplayTasks();
         }
     }
 }
