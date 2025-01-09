@@ -38,6 +38,8 @@
             comboBox_imortamt = new ComboBox();
             button_descrip = new Button();
             button_remove = new Button();
+            button_prev = new Button();
+            button_next = new Button();
             SuspendLayout();
             // 
             // label_name
@@ -53,7 +55,7 @@
             // textBox_input
             // 
             textBox_input.Location = new Point(15, 38);
-            textBox_input.Margin = new Padding(4, 4, 4, 4);
+            textBox_input.Margin = new Padding(4);
             textBox_input.Name = "textBox_input";
             textBox_input.Size = new Size(559, 30);
             textBox_input.TabIndex = 1;
@@ -61,8 +63,8 @@
             // 
             // button_confirm
             // 
-            button_confirm.Location = new Point(337, 168);
-            button_confirm.Margin = new Padding(4, 4, 4, 4);
+            button_confirm.Location = new Point(336, 199);
+            button_confirm.Margin = new Padding(4);
             button_confirm.Name = "button_confirm";
             button_confirm.Size = new Size(115, 35);
             button_confirm.TabIndex = 2;
@@ -72,8 +74,8 @@
             // 
             // button_cancel
             // 
-            button_cancel.Location = new Point(460, 168);
-            button_cancel.Margin = new Padding(4, 4, 4, 4);
+            button_cancel.Location = new Point(459, 198);
+            button_cancel.Margin = new Padding(4);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(115, 35);
             button_cancel.TabIndex = 3;
@@ -84,7 +86,7 @@
             // label_date
             // 
             label_date.AutoSize = true;
-            label_date.Location = new Point(15, 92);
+            label_date.Location = new Point(15, 82);
             label_date.Margin = new Padding(4, 0, 4, 0);
             label_date.Name = "label_date";
             label_date.Size = new Size(50, 23);
@@ -95,8 +97,8 @@
             // 
             dateTimePicker_task.CustomFormat = "yyyy-MM-dd";
             dateTimePicker_task.Format = DateTimePickerFormat.Custom;
-            dateTimePicker_task.Location = new Point(114, 85);
-            dateTimePicker_task.Margin = new Padding(4, 4, 4, 4);
+            dateTimePicker_task.Location = new Point(114, 76);
+            dateTimePicker_task.Margin = new Padding(4);
             dateTimePicker_task.Name = "dateTimePicker_task";
             dateTimePicker_task.Size = new Size(305, 30);
             dateTimePicker_task.TabIndex = 5;
@@ -104,7 +106,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(15, 138);
+            label1.Location = new Point(15, 117);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(86, 23);
@@ -115,16 +117,16 @@
             // 
             comboBox_imortamt.FormattingEnabled = true;
             comboBox_imortamt.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" });
-            comboBox_imortamt.Location = new Point(114, 128);
-            comboBox_imortamt.Margin = new Padding(4, 4, 4, 4);
+            comboBox_imortamt.Location = new Point(114, 114);
+            comboBox_imortamt.Margin = new Padding(4);
             comboBox_imortamt.Name = "comboBox_imortamt";
             comboBox_imortamt.Size = new Size(184, 31);
             comboBox_imortamt.TabIndex = 7;
             // 
             // button_descrip
             // 
-            button_descrip.Location = new Point(15, 168);
-            button_descrip.Margin = new Padding(4, 4, 4, 4);
+            button_descrip.Location = new Point(15, 199);
+            button_descrip.Margin = new Padding(4);
             button_descrip.Name = "button_descrip";
             button_descrip.Size = new Size(115, 35);
             button_descrip.TabIndex = 8;
@@ -134,7 +136,7 @@
             // 
             // button_remove
             // 
-            button_remove.Location = new Point(218, 168);
+            button_remove.Location = new Point(217, 198);
             button_remove.Name = "button_remove";
             button_remove.Size = new Size(112, 34);
             button_remove.TabIndex = 9;
@@ -142,11 +144,31 @@
             button_remove.UseVisualStyleBackColor = true;
             button_remove.Click += button_remove_Click;
             // 
+            // button_prev
+            // 
+            button_prev.Location = new Point(15, 155);
+            button_prev.Name = "button_prev";
+            button_prev.Size = new Size(112, 34);
+            button_prev.TabIndex = 10;
+            button_prev.Text = "prev";
+            button_prev.UseVisualStyleBackColor = true;
+            // 
+            // button_next
+            // 
+            button_next.Location = new Point(133, 155);
+            button_next.Name = "button_next";
+            button_next.Size = new Size(112, 34);
+            button_next.TabIndex = 11;
+            button_next.Text = "next";
+            button_next.UseVisualStyleBackColor = true;
+            // 
             // Form_edit
             // 
             AutoScaleDimensions = new SizeF(11F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(589, 218);
+            ClientSize = new Size(589, 247);
+            Controls.Add(button_next);
+            Controls.Add(button_prev);
             Controls.Add(button_remove);
             Controls.Add(button_descrip);
             Controls.Add(comboBox_imortamt);
@@ -157,7 +179,7 @@
             Controls.Add(button_confirm);
             Controls.Add(textBox_input);
             Controls.Add(label_name);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "Form_edit";
             Text = "Form_edit";
             ResumeLayout(false);
@@ -176,5 +198,7 @@
         private ComboBox comboBox_imortamt;
         private Button button_descrip;
         private Button button_remove;
+        private Button button_prev;
+        private Button button_next;
     }
 }
