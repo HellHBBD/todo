@@ -6,15 +6,15 @@ namespace todo
 {
     public partial class Form_description : Form
     {
-        private Task currentTask;
-        private TextBox txtName;
+        private TextBox txtDescription;
+        private string description;
 
-        public Form_description(Task curtask)
+        public Form_description(string initialDescription)
         {
             InitializeComponent();
-            currentTask = curtask;
+            description = initialDescription;
 
-            this.Text = "任務詳細資訊";
+            this.Text = "任務描述";
             this.Size = new Size(400, 300);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -24,32 +24,27 @@ namespace todo
 
         private void InitializeControls()
         {
-            Label lblName = new Label
+            txtDescription = new TextBox
             {
-                Text = "任務名稱：",
-                Location = new Point(20, 20),
-                AutoSize = true
+                Dock = DockStyle.Fill,
+                Multiline = true,
+                Font = new Font("Arial", 10),
+                ScrollBars = ScrollBars.Vertical,
+                Text = description // 載入初始描述
             };
-            txtName = new TextBox
-            {
-                Location = new Point(100, 20),
-                Width = 250,
-                Text = currentTask.name
-            };
-
-            Label lblDescription = new Label
-            {
-                Text = "任務描述：",
-                Location = new Point(20, 140),
-                AutoSize = true
-            };
-
-
-            this.Controls.Add(lblName);
-            this.Controls.Add(txtName);
+            this.Controls.Add(txtDescription);
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // 自動保存描述
+            description = txtDescription.Text;
+            base.OnFormClosing(e);
+        }
 
-
+        public string GetDescription()
+        {
+            return description;
+        }
     }
 }
