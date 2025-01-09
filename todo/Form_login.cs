@@ -29,6 +29,7 @@ public partial class Form_login : Form
             Program.userList = new Dictionary<string, User>();
         }
         updateListBox();
+        resize();
     }
 
     private void button_add_Click(object sender, EventArgs e)
@@ -119,10 +120,10 @@ public partial class Form_login : Form
         }
     }
 
-    private void Form_login_Resize(object sender, EventArgs e)
+    private void resize()
     {
-        listBox.Width = Width - 2 * margin - padding - 100 - 20;
-        listBox.Height = Height - 2 * margin - 40;
+        listBox.Width = Width - 2 * margin - padding - 100 - 40;
+        listBox.Height = Height - 2 * margin - 50;
 
         int x = listBox.Width + margin + padding;
         int y = margin;
@@ -144,5 +145,9 @@ public partial class Form_login : Form
         y += (padding + 30);
         button_exit.Left = x;
         button_exit.Top = y;
+    }
+    private void Form_login_Resize(object sender, EventArgs e)
+    {
+        resize();
     }
 }
