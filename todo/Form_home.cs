@@ -12,11 +12,13 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace todo
 {
+    delegate void UpdateFunction();
     public partial class Form_home : Form
     {
         private Form progressForm;
         string username;
-        public void updateCheckBox()
+        UpdateFunction update;
+        public void defaultUpdate()
         {
             for (int i = Controls.Count - 1; i >= 0; i--)
             {
@@ -63,7 +65,8 @@ namespace todo
         {
             InitializeComponent();
             Text = username = user.name;
-            updateCheckBox();
+            update = defaultUpdate;
+            update();
         }
 
         private void 切換使用者ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,7 +87,7 @@ namespace todo
                 {
                     Form_edit form = new Form_edit(this);
                     form.ShowDialog();
-                    updateCheckBox();
+                    update();
                 }
             }
         }
@@ -112,7 +115,7 @@ namespace todo
                     string taskDes = Program.currentuser.taskList[taskText].description;
                     Form_edit form = new Form_edit(this, taskText, taskDate, taskImpo, taskDes);
                     form.ShowDialog();
-                    updateCheckBox();
+                    update();
                 }
             }
         }
@@ -124,7 +127,7 @@ namespace todo
             newTask.description = descrip;
             newTask.percentage = 10;
             Program.currentuser.taskList[text] = newTask;
-            updateCheckBox();
+            update();
         }
 
         private void Form_home_FormClosing(object sender, FormClosingEventArgs e)
