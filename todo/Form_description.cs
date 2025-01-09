@@ -9,6 +9,9 @@ namespace todo
         private TextBox txtDescription;
         private string description;
 
+        private Stack<string> undoStack = new Stack<string>();
+        private Stack<string> redoStack = new Stack<string>(); 
+
         public Form_description(string initialDescription)
         {
             InitializeComponent();
