@@ -9,7 +9,7 @@ namespace todo
     {
         private RichTextBox txtDescription;
         private string description;
-        private FoldableTextManager foldableTextManager;
+        private Form_edit formedit;
 
         private Stack<string> undoStack = new Stack<string>();
         private Stack<string> redoStack = new Stack<string>();
@@ -27,8 +27,6 @@ namespace todo
         private void InitializeForm(string title, string initialDescription)
         {
             description = initialDescription;
-            foldableTextManager = new FoldableTextManager(initialDescription);
-
             this.Text = title;
             this.Size = new Size(400, 300);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -43,8 +41,8 @@ namespace todo
                 Dock = DockStyle.Fill,
                 Font = new Font("Arial", 10),
                 ScrollBars = RichTextBoxScrollBars.Vertical,
+                Text = description,
             };
-            txtDescription.KeyDown += TxtDescription_KeyDown;
             txtDescription.TextChanged += TxtDescription_TextChanged;
             this.Controls.Add(txtDescription);
 
@@ -72,32 +70,6 @@ namespace todo
             this.Controls.Add(menuStrip);
             this.MainMenuStrip = menuStrip;
         }
-
-        private void ToggleFoldMode_Click(object sender, EventArgs e)
-        {
-            foldableTextManager.ToggleFoldMode(); // 呼叫 Manager 切換折疊模式
-            ApplyFoldState(); // 更新顯示
-        }
-
-        private void ApplyFoldState()
-        {
-            txtDescription.SuspendLayout();
-            string[] updatedLines = foldableTextManager.GetFoldedText();
-            txtDescription.Lines = updatedLines; // 使用更新過的行來顯示
-            txtDescription.ScrollToCaret();
-            txtDescription.ResumeLayout();
-        }
-
-        private void TxtDescription_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F1) // 切換折疊模式
-            {
-                foldableTextManager.ToggleFoldMode();
-                ApplyFoldState(); // 更新顯示
-                e.Handled = true;
-            }
-        }
-
         private void TxtDescription_TextChanged(object sender, EventArgs e)
         {
             string currentText = txtDescription.Text;
