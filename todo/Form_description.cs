@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using System.Text;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
@@ -9,28 +9,27 @@ namespace todo
     {
         private RichTextBox txtDescription;
         private string description;
+        private FoldableTextManager foldableTextManager;
 
         private Stack<string> undoStack = new Stack<string>();
         private Stack<string> redoStack = new Stack<string>();
 
-        private Dictionary<int, bool> collapseStates = new Dictionary<int, bool>(); // 每段摺疊狀態
+        public Form_description(string initialDescription) : this("任務描述", initialDescription) { }
 
-        public Form_description(string initialDescription)
+        public Form_description(Form_edit form_Edit, string oldDescription) : this("任務詳細資訊", oldDescription) { }
+
+        private Form_description(string title, string initialDescription)
         {
             InitializeComponent();
-            description = initialDescription;
-
-            this.Text = "任務描述";
-            this.Size = new Size(400, 300);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            InitializeControls();
+            InitializeForm(title, initialDescription);
         }
 
-        public Form_description(Form_edit form_Edit, string oldDescription)
+        private void InitializeForm(string title, string initialDescription)
         {
-            InitializeComponent();
-            this.Text = "任務詳細資訊";
+            description = initialDescription;
+            foldableTextManager = new FoldableTextManager(initialDescription);
+
+            this.Text = title;
             this.Size = new Size(400, 300);
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -44,9 +43,8 @@ namespace todo
                 Dock = DockStyle.Fill,
                 Font = new Font("Arial", 10),
                 ScrollBars = RichTextBoxScrollBars.Vertical,
-                Text = description // 載入初始描述
             };
-            txtDescription.KeyDown += TxtDescription_KeyDown; // 註冊快捷鍵事件
+            txtDescription.KeyDown += TxtDescription_KeyDown;
             txtDescription.TextChanged += TxtDescription_TextChanged;
             this.Controls.Add(txtDescription);
 
@@ -56,10 +54,10 @@ namespace todo
             ToolStripMenuItem menuEdit = new ToolStripMenuItem("編輯");
             menuStrip.Items.Add(menuEdit);
 
-            ToolStripMenuItem menuUndo = new ToolStripMenuItem("上一步", null, MenuUndo_Click);
+            ToolStripMenuItem menuUndo = new ToolStripMenuItem("上一步", null, UndoAction_Click);
             menuEdit.DropDownItems.Add(menuUndo);
 
-            ToolStripMenuItem menuRedo = new ToolStripMenuItem("下一步", null, MenuRedo_Click);
+            ToolStripMenuItem menuRedo = new ToolStripMenuItem("下一步", null, RedoAction_Click);
             menuEdit.DropDownItems.Add(menuRedo);
 
             ToolStripMenuItem menuFormat = new ToolStripMenuItem("格式");
@@ -75,160 +73,40 @@ namespace todo
             this.MainMenuStrip = menuStrip;
         }
 
-        private void InitializeCollapseStates()
+        private void ToggleFoldMode_Click(object sender, EventArgs e)
         {
-            string[] lines = txtDescription.Text.Split(new[] { '\n' }, StringSplitOptions.None);
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (!collapseStates.ContainsKey(i)) // 初始化不存在的鍵
-                {
-                    collapseStates[i] = false; // 預設所有段落未摺疊
-                }
-            }
-
-            // 移除多餘的鍵
-            foreach (var key in new List<int>(collapseStates.Keys))
-            {
-                if (key >= lines.Length)
-                {
-                    collapseStates.Remove(key);
-                }
-            }
-
-            UpdateRichTextWithTriangles();
+            foldableTextManager.ToggleFoldMode(); // 呼叫 Manager 切換折疊模式
+            ApplyFoldState(); // 更新顯示
         }
 
-        private void UpdateRichTextWithTriangles()
+        private void ApplyFoldState()
         {
-            StringBuilder updatedText = new StringBuilder();
-            string[] lines = description.Split(new[] { '\n' }, StringSplitOptions.None);
-
-            // 每行是否已經處理過，避免重複添加三角形
-            for (int i = 0; i < lines.Length; i++)
-            {
-                bool isCollapsed = collapseStates.ContainsKey(i) && collapseStates[i];
-                string prefix = isCollapsed ? "▶ " : "▼ ";
-
-                string content = lines[i].TrimStart(); // 移除行首的空格
-                if (content.StartsWith("▶ ") || content.StartsWith("▼ "))
-                {
-                    // 行首已經有三角形符號，保持不變
-                    updatedText.AppendLine(lines[i]);
-                }
-                else
-                {
-                    // 沒有三角形符號時，根據摺疊狀態加上三角形符號
-                    updatedText.AppendLine($"{prefix}{lines[i]}");
-                }
-            }
-
-            int caretPosition = txtDescription.SelectionStart;
-
-            // 暫時移除文本變化事件，避免在更新文本時引發循環
-            txtDescription.TextChanged -= TxtDescription_TextChanged;
-            txtDescription.Text = updatedText.ToString();
-            txtDescription.TextChanged += TxtDescription_TextChanged;
-
-            // 保證光標位置不會錯位
-            txtDescription.SelectionStart = caretPosition < txtDescription.Text.Length ? caretPosition : txtDescription.Text.Length;
+            txtDescription.SuspendLayout();
+            string[] updatedLines = foldableTextManager.GetFoldedText();
+            txtDescription.Lines = updatedLines; // 使用更新過的行來顯示
             txtDescription.ScrollToCaret();
-        }
-
-        private void RichDescription_MouseClick(object sender, MouseEventArgs e)
-        {
-            // 計算點擊的行號
-            int charIndex = txtDescription.GetCharIndexFromPosition(e.Location);
-            int lineIndex = txtDescription.GetLineFromCharIndex(charIndex);
-
-            // 檢查點擊範圍是否有效
-            if (lineIndex >= 0 && lineIndex < collapseStates.Count)
-            {
-                int lineStartIndex = txtDescription.GetFirstCharIndexFromLine(lineIndex);
-                int relativeIndex = charIndex - lineStartIndex;
-
-                // 只有在小三角區域點擊時才切換摺疊狀態
-                if (relativeIndex >= 0 && relativeIndex <= 2) // 假設三角形占用前兩個字符位置
-                {
-                    collapseStates[lineIndex] = !collapseStates[lineIndex];
-                    UpdateRichTextWithTriangles();
-                }
-            }
+            txtDescription.ResumeLayout();
         }
 
         private void TxtDescription_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.F1) // F1 用於呼叫反白區域的三角形
+            if (e.KeyCode == Keys.F1) // 切換折疊模式
             {
-                HighlightCurrentSelection();
+                foldableTextManager.ToggleFoldMode();
+                ApplyFoldState(); // 更新顯示
                 e.Handled = true;
             }
         }
 
-        private void HighlightCurrentSelection()
-        {
-            int caretLineStart = txtDescription.SelectionStart;
-            int caretLineEnd = caretLineStart + txtDescription.SelectionLength;
-
-            // 取得選中的行範圍
-            int startLine = txtDescription.GetLineFromCharIndex(caretLineStart);
-            int endLine = txtDescription.GetLineFromCharIndex(caretLineEnd);
-
-            // 初始化並設定選中範圍的摺疊狀態
-            InitializeCollapseStatesForRange(startLine, endLine);
-
-            // 更新摺疊狀態並顯示對應三角形
-            for (int i = startLine; i <= endLine; i++)
-            {
-                collapseStates[i] = !collapseStates[i];
-            }
-
-            UpdateRichTextWithTriangles();
-        }
-
-        private void InitializeCollapseStatesForRange(int startLine, int endLine)
-        {
-            string[] lines = txtDescription.Text.Split(new[] { '\n' }, StringSplitOptions.None);
-
-            for (int i = startLine; i <= endLine; i++)
-            {
-                if (!collapseStates.ContainsKey(i)) // 初始化不存在的鍵
-                {
-                    collapseStates[i] = false; // 預設所有段落未摺疊
-                }
-            }
-
-            // 移除多餘的鍵（僅保留選中範圍內的摺疊狀態）
-            foreach (var key in new List<int>(collapseStates.Keys))
-            {
-                if (key < startLine || key > endLine)
-                {
-                    collapseStates.Remove(key);
-                }
-            }
-
-            UpdateRichTextWithTriangles();
-        }
-
-        private int GetCaretLine()
-        {
-            int index = txtDescription.SelectionStart;
-            return txtDescription.GetLineFromCharIndex(index);
-        }
-
-        private void SetCaretToLine(int line)
-        {
-            int startIndex = txtDescription.GetFirstCharIndexFromLine(line);
-            txtDescription.SelectionStart = startIndex >= 0 ? startIndex : txtDescription.Text.Length;
-            txtDescription.SelectionLength = 0;
-        }
-
         private void TxtDescription_TextChanged(object sender, EventArgs e)
         {
-            // 每次文本變化時，記錄到撤銷棧，清空恢復棧
-            undoStack.Push(description);
-            description = txtDescription.Text;
-            redoStack.Clear();
+            string currentText = txtDescription.Text;
+            if (undoStack.Count == 0 || undoStack.Peek() != currentText)
+            {
+                undoStack.Push(description); // 儲存前狀態
+                redoStack.Clear();
+            }
+            description = currentText;
         }
 
         private void MenuFont_Click(object sender, EventArgs e)
@@ -255,35 +133,38 @@ namespace todo
             }
         }
 
-        private void MenuUndo_Click(object sender, EventArgs e)
+        private void UndoAction_Click(object sender, EventArgs e)
         {
             if (undoStack.Count > 0)
             {
-                // 從撤銷棧取出最後一個狀態，保存到恢復棧
                 redoStack.Push(description);
-                description = undoStack.Pop();
-                txtDescription.TextChanged -= TxtDescription_TextChanged; // 暫時取消事件避免循環
-                txtDescription.Text = description;
-                txtDescription.TextChanged += TxtDescription_TextChanged;
+                UpdateTextContent(undoStack.Pop(), false);
             }
         }
 
-        private void MenuRedo_Click(object sender, EventArgs e)
+        private void RedoAction_Click(object sender, EventArgs e)
         {
             if (redoStack.Count > 0)
             {
-                // 從恢復棧取出最後一個狀態，保存到撤銷棧
                 undoStack.Push(description);
-                description = redoStack.Pop();
-                txtDescription.TextChanged -= TxtDescription_TextChanged; // 暫時取消事件避免循環
-                txtDescription.Text = description;
-                txtDescription.TextChanged += TxtDescription_TextChanged;
+                UpdateTextContent(redoStack.Pop(), false);
             }
+        }
+
+        private void UpdateTextContent(string newText, bool pushUndo = true)
+        {
+            if (pushUndo && (undoStack.Count == 0 || undoStack.Peek() != description))
+            {
+                undoStack.Push(description);
+            }
+            description = newText;
+            txtDescription.TextChanged -= TxtDescription_TextChanged;
+            txtDescription.Text = description;
+            txtDescription.TextChanged += TxtDescription_TextChanged;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            // 自動保存描述
             description = txtDescription.Text;
             base.OnFormClosing(e);
         }
