@@ -77,18 +77,18 @@ namespace todo
         private Color GetImportanceColor(int importance)
         {
             // 重要度的漸層顏色邏輯
-            if (importance >= 8)
+            if (importance >= 5)
             {
                 // 漸層從紅色過渡到橙色
-                int red = (int)(255 - (importance - 8) * 255 / 2);  // 8 到 10 的範圍
-                int green = (int)((importance - 8) * 255 / 2);      // 8 到 10 的範圍
+                int red = (int)(255);  // 5 到 10 的範圍
+                int green = (int)((10-importance) * 255 / 5);      // 5 到 10 的範圍
                 return Color.FromArgb(red, green, 0);  // 返回漸層顏色
             }
-            else if (importance >= 5)
+            else if (importance >= 1)
             {
                 // 漸層從橙色過渡到綠色
-                int red = (int)((5 - importance) * 255 / 3);  // 5 到 8 的範圍
-                int green = (int)((importance - 5) * 255 / 3);  // 5 到 8 的範圍
+                int red = (int)(importance) * (255 / 4);  // 1 到 4 的範圍
+                int green = (int)(255);  // 1 到 4 的範圍
                 return Color.FromArgb(red, green, 0);  // 返回漸層顏色
             }
             else
