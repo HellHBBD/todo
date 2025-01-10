@@ -11,14 +11,12 @@ namespace todo
 {
     public partial class Form_quadrant : Form
     {
-        private User currentUser;
         private List<Label> taskLabels;
         private ToolTip taskToolTip = new ToolTip();
 
-        public Form_quadrant(User user)
+        public Form_quadrant()
         {
             InitializeComponent();
-            currentUser = user;
             taskLabels = new List<Label>();
 
             this.Text = "任務四象限圖";
@@ -65,9 +63,9 @@ namespace todo
             }
             taskLabels.Clear();
 
-            if (currentUser.taskList.Count == 0) return;
+            if (Program.currentuser.taskList.Count == 0) return;
 
-            var tasks = currentUser.taskList.Values.ToList();
+            var tasks = Program.currentuser.taskList.Values.ToList();
             DateTime minDate = tasks.Min(t => t.date);
             DateTime maxDate = tasks.Max(t => t.date);
 
@@ -146,7 +144,7 @@ namespace todo
                 }
 
                 // 滑鼠懸停事件
-                taskLabel.MouseHover += (s, e) =>
+                taskLabel.MouseEnter += (s, e) =>
                 {
                     taskToolTip.Show(
                         $"任務名稱: {task.name}\n日期: {task.date.ToShortDateString()}\n重要性: {task.important}\n描述: {task.description}",

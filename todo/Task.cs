@@ -16,7 +16,8 @@ namespace todo
         public string description = "";
         public bool Checked;
         public int important;
-        public int percentage = 10; // cP/pP
+        public double priority;
+        //public int percentage; // cP/pP
         // public int progressPoint
         // public int completePoint
         public HashSet<string> prev = new HashSet<string>();
