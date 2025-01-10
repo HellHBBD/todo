@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,9 @@ namespace todo
         // public int completePoint
         public HashSet<string> prev = new HashSet<string>();
         public HashSet<string> next = new HashSet<string>();
+
+        [JsonIgnore]
+        public CheckBox checkBox = new CheckBox();
 
         public Task(string name)
         {

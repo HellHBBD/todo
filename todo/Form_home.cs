@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace todo
 {
@@ -18,7 +19,26 @@ namespace todo
         private Form? progressForm;
         string username;
         UpdateFunction update;
-        public void defaultUpdate()
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+            Pen pen = new Pen(Color.Black, 2);
+
+            foreach (Task task in Program.currentuser.taskList.Values)
+            {
+                Point start = new Point(task.checkBox.Left + task.checkBox.Width, task.checkBox.Top + 14);
+                foreach (string item in task.next)
+                {
+                    CheckBox next = Program.currentuser.taskList[item].checkBox;
+                    Point end = new Point(next.Left + 5, next.Top + 14);
+                    g.DrawLine(pen, start, end);
+                }
+            }
+
+            pen.Dispose();
+        }
+        void defaultUpdate()
         {
             for (int i = Controls.Count - 1; i >= 0; i--)
             {
@@ -61,6 +81,112 @@ namespace todo
                 taskIndex++;
             }
         }
+
+        void updateGraph()
+        {
+            for (int i = Controls.Count - 1; i >= 0; i--)
+            {
+                if (Controls[i] is CheckBox)
+                {
+                    Controls.RemoveAt(i);
+                }
+            }
+
+            List<List<CheckBox>> layer = new List<List<CheckBox>>();
+            layer.Add(new List<CheckBox>());
+            foreach (Task item in Program.currentuser.taskList.Values)
+            {
+                if (item.prev.Count == 0)
+                {
+                    item.checkBox = new CheckBox
+                    {
+                        Text = item.name,
+                        Checked = item.Checked,
+                        Location = new Point(50, 50),
+                        AutoSize = true,
+                        BackColor = Color.Transparent,
+                    };
+                    /* bind event handler */
+                    item.checkBox.MouseDown += Form_home_Checkbox_MouseDown;
+                    item.checkBox.MouseEnter += CheckBox_MouseEnter;
+                    item.checkBox.MouseLeave += CheckBox_MouseLeave;
+                    Controls.Add(item.checkBox);
+
+                    layer[0].Add(item.checkBox);
+                }
+            }
+            int maxCount = layer[0].Count;
+            for (int i = 0; layer[i].Count > 0; i++)
+            {
+                layer.Add(new List<CheckBox>());
+                foreach (CheckBox task in layer[i])
+                {
+                    foreach (string item in Program.currentuser.taskList[task.Text].next)
+                    {
+                        Task temp = Program.currentuser.taskList[item];
+                        temp.checkBox = new CheckBox
+                        {
+                            Text = temp.name,
+                            Checked = temp.Checked,
+                            Location = new Point(100, 100),
+                            AutoSize = true,
+                            BackColor = Color.Transparent,
+                        };
+                        /* bind event handler */
+                        temp.checkBox.MouseDown += Form_home_Checkbox_MouseDown;
+                        temp.checkBox.MouseEnter += CheckBox_MouseEnter;
+                        temp.checkBox.MouseLeave += CheckBox_MouseLeave;
+                        Controls.Add(temp.checkBox);
+
+                        layer[i + 1].Add(temp.checkBox);
+                    }
+                }
+                if (layer[i + 1].Count > maxCount)
+                {
+                    maxCount = layer[i + 1].Count;
+                }
+            }
+
+            //check duplicate
+            HashSet<string> record = new HashSet<string>();
+            for (int i = layer.Count-1; i >= 0; i--)
+            {
+                HashSet<CheckBox> remove = new HashSet<CheckBox>();
+                for (int j = 0; j < layer[i].Count; j++)
+                {
+                    if (record.Contains(layer[i][j].Text))
+                    {
+                        remove.Add(layer[i][j]);
+                    }
+                    else
+                    {
+                        record.Add(layer[i][j].Text);
+                    }
+                }
+                foreach (CheckBox item in remove)
+                {
+                    layer[i].Remove(item);
+                    Controls.Remove(item);
+                }
+            }
+
+            int initialX = 20;
+            int maxWidth = maxCount * 27 + (maxCount - 1) * 40;
+            for (int i = 0; i < layer.Count; i++)
+            {
+                int m = layer[i].Count;
+                int offsetX = initialX + 150 * i;
+                int padding = (maxWidth - m * 27) / (m + 1);
+                int initialY = 30 + padding;
+                for (int j = 0; j < m; j++)
+                {
+                    int offsetY = initialY + (27 + padding) * j;
+                    layer[i][j].Location = new Point(offsetX, offsetY);
+                }
+            }
+            Invalidate();
+        }
+
         public Form_home(User user)
         {
             InitializeComponent();
@@ -239,6 +365,23 @@ namespace todo
 
                 Controls.Add(checkBox);
                 taskIndex++;
+            }
+        }
+
+        private void 順序ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            update = updateGraph;
+            update();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = Controls.Count - 1; i >= 0; i--)
+            {
+                if (Controls[i] is CheckBox)
+                {
+                    Controls.RemoveAt(i);
+                }
             }
         }
     }
