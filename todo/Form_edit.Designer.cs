@@ -127,7 +127,7 @@
             // button_remove
             // 
             button_remove.Location = new Point(178, 164);
-            button_remove.Margin = new Padding(2, 2, 2, 2);
+            button_remove.Margin = new Padding(2);
             button_remove.Name = "button_remove";
             button_remove.Size = new Size(92, 28);
             button_remove.TabIndex = 9;
@@ -138,9 +138,9 @@
             // button_link
             // 
             button_link.Location = new Point(12, 128);
-            button_link.Margin = new Padding(2, 2, 2, 2);
+            button_link.Margin = new Padding(2);
             button_link.Name = "button_link";
-            button_link.Size = new Size(92, 28);
+            button_link.Size = new Size(94, 28);
             button_link.TabIndex = 10;
             button_link.Text = "先後順序";
             button_link.UseVisualStyleBackColor = true;

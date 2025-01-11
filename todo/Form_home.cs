@@ -307,7 +307,7 @@ namespace todo
             Program.mainForm = new Form_login();
             Close();
         }
-        private void Form_home_MouseDown(object sender, MouseEventArgs e)
+        private void Form_home_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -365,6 +365,11 @@ namespace todo
             //TODO
             //string jsonString = JsonConvert.SerializeObject(Program.userList);
             //File.WriteAllText("data.json", jsonString, Encoding.UTF8);
+        }
+        private void 存檔ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string jsonString = JsonConvert.SerializeObject(Program.userList);
+            File.WriteAllText("data.json", jsonString, Encoding.UTF8);
         }
 
         private void 月曆ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -440,17 +445,6 @@ namespace todo
         {
             update = updateGraph;
             update();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            for (int i = Controls.Count - 1; i >= 0; i--)
-            {
-                if (Controls[i] is CheckBox)
-                {
-                    Controls.RemoveAt(i);
-                }
-            }
         }
     }
 }
