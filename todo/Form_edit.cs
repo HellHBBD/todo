@@ -25,6 +25,7 @@ namespace todo
         {
             InitializeComponent();
             status = EditStatus.Add;
+            Text = "新增任務";
             label_name.Text = "任務名稱：";
             oldTask = textBox_input.Text = "";
             formhome = home;
@@ -37,6 +38,7 @@ namespace todo
         {
             InitializeComponent();
             status = EditStatus.Modify;
+            Text = "修改任務";
             label_name.Text = "新任務名稱：";
             oldTask = textBox_input.Text = task;
             formhome = home;

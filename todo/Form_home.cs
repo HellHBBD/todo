@@ -16,26 +16,33 @@ namespace todo
     public partial class Form_home : Form
     {
         private Form? progressForm;
-        string username;
+        string username = "";
         UpdateFunction update;
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            Graphics g = e.Graphics;
-            Pen pen = new Pen(Color.Black, 2);
-
-            foreach (Task task in Program.currentuser.taskList.Values)
+            if (update == updateGraph)
             {
-                Point start = new Point(task.checkBox.Left + task.checkBox.Width, task.checkBox.Top + 14);
-                foreach (string item in task.next)
+                Graphics g = e.Graphics;
+                Pen pen = new Pen(Color.Black, 2);
+
+                foreach (Task task in Program.currentuser.taskList.Values)
                 {
-                    CheckBox next = Program.currentuser.taskList[item].checkBox;
-                    Point end = new Point(next.Left + 5, next.Top + 14);
-                    g.DrawLine(pen, start, end);
+                    Point start = new Point(task.checkBox.Left + task.checkBox.Width, task.checkBox.Top + 14);
+                    foreach (string item in task.next)
+                    {
+                        CheckBox next = Program.currentuser.taskList[item].checkBox;
+                        Point end = new Point(next.Left + 5, next.Top + 14);
+                        g.DrawLine(pen, start, end);
+                    }
                 }
+                pen.Dispose();
+            }
+            else
+            {
+                e.Graphics.Clear(BackColor);
             }
 
-            pen.Dispose();
         }
         void defaultUpdate()
         {
@@ -77,6 +84,7 @@ namespace todo
                 Controls.Add(checkBox);
                 taskIndex++;
             }
+            Invalidate();
         }
 
         void updateGraph()
@@ -242,6 +250,7 @@ namespace todo
                 Controls.Add(checkBox);
                 taskIndex++;
             }
+            Invalidate();
         }
 
 
@@ -285,7 +294,7 @@ namespace todo
         public Form_home()
         {
             InitializeComponent();
-            Text = Program.currentuser.name;
+            Text = "使用者(" + Program.currentuser.name + ")";
             update = defaultUpdate;
             update();
         }

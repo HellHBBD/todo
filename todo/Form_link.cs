@@ -21,6 +21,7 @@ namespace todo
         public Form_link(string currentTask)
         {
             InitializeComponent();
+            Text = "任務先後順序";
             this.currentTask = currentTask;
             prev_temp = currentUser.taskList[currentTask].prev;
             next_temp = currentUser.taskList[currentTask].next;

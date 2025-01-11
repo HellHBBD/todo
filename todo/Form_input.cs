@@ -24,6 +24,7 @@ namespace todo
         {
             InitializeComponent();
             status = InputStatus.Add;
+            Text = "新增使用者";
             label_prompt.Text = "名稱：";
             oldName = textBox_input.Text = "";
         }
@@ -33,6 +34,7 @@ namespace todo
         {
             InitializeComponent();
             status = InputStatus.Rename;
+            Text = "重新命名";
             label_prompt.Text = "新名稱：";
             oldName = textBox_input.Text = name;
 

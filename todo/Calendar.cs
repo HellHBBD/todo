@@ -15,6 +15,7 @@ namespace todo
         {
             InitializeComponent();
             curUser = user;
+            Text = "任務月曆";
 
             monthCalendar = new MonthCalendar
             {
@@ -81,7 +82,7 @@ namespace todo
             {
                 // 漸層從紅色過渡到橙色
                 int red = (int)(255);  // 5 到 10 的範圍
-                int green = (int)((10-importance) * 255 / 5);      // 5 到 10 的範圍
+                int green = (int)((10 - importance) * 255 / 5);      // 5 到 10 的範圍
                 return Color.FromArgb(red, green, 0);  // 返回漸層顏色
             }
             else if (importance >= 1)
