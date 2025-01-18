@@ -113,7 +113,7 @@ namespace todo
 
     public class FoldableLine
     {
-        public string Text { get; set; }
+        public string Text = "";
         public bool IsVisible { get; set; }
         public bool IsFolded { get; set; }
         public int Level { get; set; } // 縮排層級，根據 tab 數量確定

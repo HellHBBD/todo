@@ -15,8 +15,8 @@ namespace todo
     delegate void UpdateFunction();
     public partial class Form_home : Form
     {
-        private Form? progressForm;
-        string username = "";
+        //private Form? progressForm;
+        //string username = "";
         UpdateFunction update;
         protected override void OnPaint(PaintEventArgs e)
         {

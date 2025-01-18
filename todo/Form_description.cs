@@ -7,9 +7,14 @@ namespace todo
 {
     public partial class Form_description : Form
     {
-        private RichTextBox txtDescription;
-        private string description;
-        private Form_edit formedit;
+        private string description = "";
+        private RichTextBox txtDescription = new RichTextBox
+        {
+            Dock = DockStyle.Fill,
+            Font = new Font("Arial", 10),
+            ScrollBars = RichTextBoxScrollBars.Vertical,
+        };
+        //private Form_edit formedit;
 
         private Stack<string> undoStack = new Stack<string>();
         private Stack<string> redoStack = new Stack<string>();
@@ -36,13 +41,7 @@ namespace todo
 
         private void InitializeControls()
         {
-            txtDescription = new RichTextBox
-            {
-                Dock = DockStyle.Fill,
-                Font = new Font("Arial", 10),
-                ScrollBars = RichTextBoxScrollBars.Vertical,
-                Text = description,
-            };
+            txtDescription.Text = description;
             txtDescription.TextChanged += TxtDescription_TextChanged;
             this.Controls.Add(txtDescription);
 
@@ -70,7 +69,7 @@ namespace todo
             this.Controls.Add(menuStrip);
             this.MainMenuStrip = menuStrip;
         }
-        private void TxtDescription_TextChanged(object sender, EventArgs e)
+        private void TxtDescription_TextChanged(object? sender, EventArgs e)
         {
             string currentText = txtDescription.Text;
             if (undoStack.Count == 0 || undoStack.Peek() != currentText)
@@ -81,7 +80,7 @@ namespace todo
             description = currentText;
         }
 
-        private void MenuFont_Click(object sender, EventArgs e)
+        private void MenuFont_Click(object? sender, EventArgs e)
         {
             using (FontDialog fontDialog = new FontDialog())
             {
@@ -93,7 +92,7 @@ namespace todo
             }
         }
 
-        private void MenuColor_Click(object sender, EventArgs e)
+        private void MenuColor_Click(object? sender, EventArgs e)
         {
             using (ColorDialog colorDialog = new ColorDialog())
             {
@@ -105,7 +104,7 @@ namespace todo
             }
         }
 
-        private void UndoAction_Click(object sender, EventArgs e)
+        private void UndoAction_Click(object? sender, EventArgs e)
         {
             if (undoStack.Count > 0)
             {
@@ -114,7 +113,7 @@ namespace todo
             }
         }
 
-        private void RedoAction_Click(object sender, EventArgs e)
+        private void RedoAction_Click(object? sender, EventArgs e)
         {
             if (redoStack.Count > 0)
             {

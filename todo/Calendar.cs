@@ -152,12 +152,12 @@ namespace todo
                 Rectangle textRect = new Rectangle(e.Bounds.Left + colorBoxWidth, e.Bounds.Top, e.Bounds.Width - colorBoxWidth, e.Bounds.Height);
 
                 // 如果任務已完成，添加槓線
-                if (item.IsChecked)
+                if (item.IsChecked && e.Font != null)
                 {
                     e.Graphics.DrawString(item.Text, e.Font, new System.Drawing.SolidBrush(item.TextColor), textRect);
                     e.Graphics.DrawLine(new System.Drawing.Pen(System.Drawing.Color.Gray, 2), textRect.Left, textRect.Top + textRect.Height / 2, textRect.Right, textRect.Top + textRect.Height / 2); // 這裡畫槓線
                 }
-                else
+                else if (e.Font != null)
                 {
                     e.Graphics.DrawString(item.Text, e.Font, new System.Drawing.SolidBrush(item.TextColor), textRect);
                 }

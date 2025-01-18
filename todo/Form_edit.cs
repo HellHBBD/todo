@@ -133,6 +133,16 @@ namespace todo
 
         private void button_remove_Click(object sender, EventArgs e)
         {
+            /* remove next link to oldTask */
+            foreach (string prev in Program.currentuser.taskList[oldTask].prev)
+            {
+                Program.currentuser.taskList[prev].next.Remove(oldTask);
+            }
+            /* remove prev link to oldTask */
+            foreach (string next in Program.currentuser.taskList[oldTask].next)
+            {
+                Program.currentuser.taskList[next].prev.Remove(oldTask);
+            }
             Program.currentuser.taskList.Remove(oldTask);
             Close();
         }
